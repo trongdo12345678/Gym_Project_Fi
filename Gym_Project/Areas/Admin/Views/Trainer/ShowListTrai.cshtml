@@ -1,0 +1,167 @@
+﻿@model Gym_Project.Models.Trainer
+@{
+    Layout = "_LayoutAdmin";
+}
+@section naviheader {
+
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="#" class="nav-link">Home</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="#" class="nav-link">Trainer</a>
+        </li>
+    </ul>
+}
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Manage Trainer</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a asp-action="Project">Home</a></li>
+                    <li class="breadcrumb-item active">Trainer</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+<style>
+    .activeeee {
+        background-color: #0d6efd !important;
+    }
+</style>
+<!-- Main content -->
+<section class="content">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">
+                List Trainer
+            </h3>
+
+            <div class="card-tools">
+                <a asp-action="ShowAddTrai" class="btn btn-primary" style="margin-right:50px">Add new</a>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-9">
+                    <form asp-controller="Trainer" asp-action="ShowListTrai" method="get">
+                        <div class="input-group input-group-sm">
+                            <input type="text" name="searchtext" class="form-control" />
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-info btn-flat">Search</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <table class="table table-hover">
+                <thead>
+                    <tr class="text-center">
+                        <th>Name</th>
+                        <th>Img</th>
+                        <th>User Name</th>
+                        <th>Email</th>
+                        <th>Specialization</th>
+                        <th>Phone</th>
+                        <th>Role</th>
+                        <th>Function</th>
+                    </tr>
+                </thead>
+
+                <tbody id="projectList">
+
+                    @foreach (var item in ViewBag.Trainer)
+                    {
+                        <tr>
+                            <td class="text-center">@item.TrainerName</td>
+                            @if (@item.Img != null)
+                            {
+                                <td class="text-center">
+                                    <img src="@item.Img" width="60" />
+                                </td>
+                            }
+                            <td class="text-center">@item.Username</td>
+                            <td class="text-center">@item.Email</td>
+                            <td class="text-center">@item.Specialization</td>
+                            <td class="text-center">@item.Phone</td>
+                            <td class="text-center">@item.RoleId</td>
+                            <td class="text-center">
+                                <a asp-area="admin" asp-controller="Trainer" asp-action="ShowUpdateTrainer" asp-route-id="@item.TrainerId" class="btn btm-sm btn-success">Edit</a>
+                                <a asp-area="admin" asp-controller="Trainer" asp-action="DropTrainer" asp-route-id="@item.TrainerId" onclick="confirmDelete(@item.TrainerId)" class="btn btm-sm btn-danger btnDelete">Delete</a>
+                            </td>
+                        </tr>
+                    }
+            </table>
+            <div class="row">
+                <div class="col-md-5">
+                </div>
+                <div class="col-md-7 mt-3">
+                    <ul style="display:flex;">
+                        <li style="list-style-type:none;padding:10px;border:1px solid black;margin:4px; border-radius:5px;">
+                            <a class="page-link " href="/Admin/Trainer/ShowListTrai/1">Firstly</a>
+                        </li>
+
+                        @if (ViewBag.CurrentPage > 1)
+                        {
+                            <li style="list-style-type:none;padding:10px;border:1px solid black;margin:4px; border-radius:5px;">
+                                <a class="page-link " href="/Admin/Trainer/ShowListTrai/@(ViewBag.CurrentPage - 1)">@((ViewBag.CurrentPage - 1))</a>
+                            </li>
+                        }
+
+                        <li style="list-style-type:none;padding:10px;border:1px solid black;margin:4px; border-radius:5px;" class="activeeee">
+                            <a class="page-link " href="/Admin/Trainer/ShowListTrai/@(ViewBag.CurrentPage)">@ViewBag.CurrentPage</a>
+                        </li>
+
+                        @if (ViewBag.CurrentPage < ViewBag.TotalPage)
+                        {
+                            <li style="list-style-type:none;padding:10px;border:1px solid black;margin:4px; border-radius:5px;">
+                                <a class="page-link " href="/Admin/Trainer/ShowListTrai/@(ViewBag.CurrentPage + 1)">@((ViewBag.CurrentPage + 1))</a>
+                            </li>
+                        }
+                        @if (ViewBag.CurrentPage < ViewBag.TotalPage - 1)
+                        {
+                            <li style="list-style-type:none;padding:10px;border:1px solid black;margin:4px; border-radius:5px;">
+                                <a class="page-link " href="/Admin/Trainer/ShowListTrai/@(ViewBag.CurrentPage + 2)">@((ViewBag.CurrentPage + 2))</a>
+                            </li>
+                        }
+                        <li style="list-style-type:none;padding:10px;border:1px solid black;margin:4px; border-radius:5px;">
+                            <a class="page-link " href="/Admin/Trainer/ShowListTrai/@ViewBag.TotalPage">Final</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+@section scripts {
+
+    <script>
+        function confirmDelete(id) {
+            if (confirm("Are you sure you want to delete?")) {
+                $.ajax({
+                    url: '@Url.Action("DropTrainer", "Trainer")',
+                    type: 'POST',
+                    data: { id: id },
+                    success: function (response) {
+                        if (response.success) {
+                            alert(response.message);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        alert("An error occurred while deleting data.");
+                    }
+                });
+            }
+        }
+        
+    </script>
+}

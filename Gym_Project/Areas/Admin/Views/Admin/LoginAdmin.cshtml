@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="~/css/style.css" rel="stylesheet" />
+</head>
+<body>
+    <div style="width:auto;align-center;margin-top:400px;margin-left:45%;">
+        <h2>Login Admin</h2>
+        <button onclick="document.getElementById('id01').style.display='block'">Login</button>
+    </div>
+<div id="id01" class="modal">
+
+        <form class="modal-content animate" asp-area="Admin" asp-controller="Admin" asp-action="Login" method="post">
+    <div class="imgcontainer">
+      <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+      <img src="~/img/admin.png" alt="Avatar" class="avatar">
+    </div>
+
+    <div class="container">
+                <label for="Username"><b>Username</b></label>
+                <input type="text" placeholder="Enter Username" name="Username" required>
+                @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+                {
+                    <span class="text-danger">@ViewBag.ErrorMessage</span>
+                }
+      <label for="psw"><b>Password</b></label>
+                <input type="password" placeholder="Enter Password" name="Password" required>
+        
+      <button type="submit">Login</button>
+    </div>
+
+    <div class="container" style="background-color:#f1f1f1">
+      <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+    </div>
+  </form>
+</div>
+@section scripts {
+<script>
+var modal = document.getElementById('id01');
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+</script>
+}
+</body>
+</html>

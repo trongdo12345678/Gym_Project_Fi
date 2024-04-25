@@ -1,0 +1,27 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace Gym_Project.Models;
+
+public partial class MemberPackage
+{
+    public int MemPackId { get; set; }
+
+    public int? TrainerId { get; set; }
+
+    public int? MemberId { get; set; }
+
+    public string? Status { get; set; }
+
+    public int? PackageId { get; set; }
+
+    public DateOnly? StartDate { get; set; }
+
+    public DateOnly? EndDate { get; set; }
+
+    public virtual Member? Member { get; set; }
+
+    public virtual Payment? MemberNavigation { get; set; }
+
+    public virtual Package? Package { get; set; }
+}

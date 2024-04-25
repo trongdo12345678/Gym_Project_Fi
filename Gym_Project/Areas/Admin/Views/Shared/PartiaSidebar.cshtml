@@ -1,0 +1,86 @@
+﻿   <!-- Sidebar -->
+<div class="sidebar">
+    <!-- Sidebar user (optional) -->
+    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+            <img src="~/img/gym.jpg" class="img-circle elevation-2" alt="User Image">
+        </div>
+        <div class="info">
+            <a href="#" style="text-decoration: none;" class="d-block">Gym Fitness</a>
+        </div>
+    </div>
+
+
+    <!-- Sidebar Menu -->
+    <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <!-- Add icons to the links using the .nav-icon class
+            with font-awesome or any other icon font library -->
+            <li class="nav-item">
+                <a asp-controller="Trainer" asp-action="ShowListtrai" class="nav-link">
+                    <i class="nav-icon fas fa-th"></i>
+                    <p>
+                        Trainer Manager
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a asp-controller="Expense" asp-action="Index" class="nav-link">
+                    <i class="nav-icon fas fa-th"></i>
+                    <p>
+                        Payment
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a asp-controller="Expense" asp-action="Index" class="nav-link">
+                    <i class="nav-icon fas fa-th"></i>
+                    <p>
+                        Feedback
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a asp-controller="Expense" asp-action="Index" class="nav-link">
+                    <i class="nav-icon fas fa-th"></i>
+                    <p>
+                        Attendance
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-th"></i>
+                    <p>
+                        Manage Package 
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a asp-controller="ProjectType" asp-action="index" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Member Package</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a asp-controller="Project" asp-action="index" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Package</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a asp-action="Logout" asp-controller="Admin" class="nav-link"> 
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <p>
+                        Log Out
+                    </p>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <!-- /.sidebar-menu -->
+</div>
+<!-- /.sidebar -->
