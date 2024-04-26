@@ -131,7 +131,7 @@ public partial class GymProjectContext : DbContext
             entity.Property(e => e.PackageId).HasColumnName("PackageID");
             entity.Property(e => e.Cost).HasColumnType("decimal(18, 0)");
             entity.Property(e => e.Description).HasColumnType("text");
-            entity.Property(e => e.Discount).HasColumnType("decimal(5, 2)");
+            entity.Property(e => e.Discount).HasColumnType("decimal(18, 0)");
             entity.Property(e => e.Img).HasColumnType("text");
             entity.Property(e => e.PackageName)
                 .HasMaxLength(100)

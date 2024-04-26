@@ -1,0 +1,132 @@
+﻿@model Gym_Project.Models.Package
+@{
+    Layout = "_LayoutAdmin";
+}
+@if (TempData["Mess"] != null)
+{
+	<div class="alert alert-danger" role="alert">
+		@TempData["Mess"]
+	</div>
+}
+@section naviheader {
+
+	<!-- Left navbar links -->
+	<ul class="navbar-nav">
+		<li class="nav-item">
+			<a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+		</li>
+		<li class="nav-item d-none d-sm-inline-block">
+			<a href="#" class="nav-link"><b>Add Package</b> </a>
+		</li>
+	</ul>
+}
+<form asp-area="Admin" asp-controller="Package" asp-action="AddPack" enctype="multipart/form-data" method="post">
+	<div class="card-body">
+		<div class="bs-stepper-content">
+			<div id="logins-part" class="content" role="tabpanel" aria-labelledby="logins-part-trigger">
+				<div class="form-group">
+					<label for="PackageName">Package Name</label>
+					<input asp-for="PackageName" type="text" class="mdc-text-field__input form-control" />
+					<span class="text-danger">@ViewBag.Mess</span>
+				</div>
+				<div class="form-group">
+					<label for="Description">Description</label>
+					<textarea asp-for="Description" id="txtDetail" class="mdc-text-field__input form-control"></textarea>
+				</div>
+				<div class="form-group">
+					<label for="exampleInputFile">Images Package</label>
+					<div class="input-group">
+						<div class="custom-file">
+							<input asp-for="Img" type="text" id="txtImage" class="form-control" />
+						</div>
+						<div class="input-group-append">
+							<label class="btn btn-primary">
+								Open file <input type="file" style="display: none;" onchange="handleFileSelect(event)">
+							</label>
+						</div>
+					</div>
+					<span class="text-danger">@ViewBag.Mess</span>
+				</div>
+				<div class="form-group">
+					<label for="TrainerId">Trainer Name</label>
+					<select asp-for="TrainerId" class="form-control">
+						<option value="">--Select Choose a coach--</option>
+						@foreach (var item in ViewBag.Trai)
+						{
+							<option value="@item.TrainerId">@item.TrainerName</option>
+						}
+					</select>
+					<span class="text-danger">@ViewBag.Mess</span>
+					<span class="text-danger">@Html.ValidationMessageFor(x => x.TrainerId)</span>
+				</div>
+				<div class="form-group">
+					<label for="Cost">Cost</label>
+					<input id="targetAmountInput" asp-for="Cost" type="text" class="mdc-text-field__input form-control" />
+					<span class="text-danger">@ViewBag.Mess</span>
+				</div>
+				<div class="form-group">
+					<label for="Discount">Discount</label>
+					<input id="AmountInput" asp-for="Discount" type="text" class="mdc-text-field__input form-control" />
+					<span class="text-danger">@ViewBag.Mess</span>
+				</div>
+				<div class="form-group">
+					<a asp-action="ShowListPack" class="btn btn-danger">Exit</a>
+					<button type="submit" class="btn btn-primary">Save</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+@section scripts {
+
+	<script>
+		//bản chỉnh details
+		$(Document).ready(function () {
+			CKEDITOR.replace('txtDetail', {
+				customConfig: '/ckeditor/config.js',
+				extraAllowedContent: 'span',
+			});
+		})
+		//gía tiền
+		$(document).ready(function () {
+			$('#targetAmountInput').on('input', function () {
+				var inputVal = $(this).val();
+				var newVal = inputVal.replace(/\D/g, '');
+				newVal = newVal.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+				$(this).data('raw-value', newVal);
+				$(this).val(newVal);
+			});
+		});
+		$(document).ready(function () {
+			$('#AmountInput').on('input', function () {
+				var inputVal = $(this).val();
+				var newVal = inputVal.replace(/\D/g, '');
+				newVal = newVal.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+				$(this).data('raw-value', newVal);
+				$(this).val(newVal);
+			});
+		});
+		$('#formEndDate').submit(function () {
+			var rawValue = $('#targetAmountInput').data('raw-value');
+			// Bạn có thể sử dụng rawValue để thực hiện các thao tác tiếp theo, ví dụ: chuyển đổi thành kiểu số
+		});
+		//tải ảnh lên
+		function handleFileSelect(event) {
+			const files = event.target.files;
+
+			if (files.length > 0) {
+				const reader = new FileReader();
+
+				reader.onload = function (e) {
+					// Lưu đường dẫn của ảnh vào trường ẩn
+					document.getElementById('txtImage').value = e.target.result;
+				};
+
+				reader.readAsDataURL(files[0]);
+			}
+		}
+
+
+	</script>
+
+}

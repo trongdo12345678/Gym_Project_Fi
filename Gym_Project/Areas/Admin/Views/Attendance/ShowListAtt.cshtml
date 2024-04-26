@@ -1,0 +1,247 @@
+﻿@model Gym_Project.Models.Attendance
+@{
+    Layout = "_LayoutAdmin";
+}
+@section naviheader {
+
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="#" class="nav-link">Home</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="#" class="nav-link">Attendance</a>
+        </li>
+    </ul>
+}
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Manage Attendance</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a >Home</a></li>
+                    <li class="breadcrumb-item active">Attendance</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+<style>
+    .activeeee {
+        background-color: #0d6efd !important;
+    }
+</style>
+<!-- Main content -->
+<section class="content">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">
+                List Attendance Deltails
+            </h3>
+            <div class="card-tools">
+                <a class="btn btn-danger" id="BtnDeleteAll">Delete All</a>
+            </div>
+        </div>
+        <div class="card-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr class="text-center">
+                        <th>
+                            <input type="checkbox" id="SelectAll" />
+                        </th>
+                        <th>Trainer Name</th>
+                        <th>Date</th>
+                        <th>Number Of Sessions</th>
+                        <th>Function</th>
+                    </tr>
+                </thead>
+
+                <tbody id="projectList">
+
+                    @foreach (var item in ViewBag.Att)
+                    {
+                        <tr id="trow_@item.AttendanceId">
+                            <td class="text-center"><input type="checkbox" class="ckbItem" value="@item.AttendanceId" /></td>
+                            <td class="text-center">@item.Trainer?.TrainerName</td>
+                            <td class="text-center">@item.Date</td>
+                            <td class="text-center">@item.NumberOfSessions</td>
+                            <td class="text-center">
+                                <a asp-area="admin" asp-controller="Attendance" asp-action="DropAtt" asp-route-id="@item.AttendanceId" onclick="confirmDelete(@item.AttendanceId)" class="btn btm-sm btn-danger btnDelete">Delete</a>
+                            </td>
+                        </tr>
+                    }
+            </table>
+            <div class="row">
+                <div class="col-md-5">
+                </div>
+                <div class="col-md-7 mt-3">
+                    <ul style="display:flex;">
+                        <li style="list-style-type:none;padding:10px;border:1px solid black;margin:4px; border-radius:5px;">
+                            <a class="page-link " href="/Admin/Attendance/ShowListAtt/1">Firstly</a>
+                        </li>
+
+                        @if (ViewBag.CurrentPage > 1)
+                        {
+                            <li style="list-style-type:none;padding:10px;border:1px solid black;margin:4px; border-radius:5px;">
+                                <a class="page-link " href="/Admin/Attendance/ShowListAtt/@(ViewBag.CurrentPage - 1)">@((ViewBag.CurrentPage - 1))</a>
+                            </li>
+                        }
+
+                        <li style="list-style-type:none;padding:10px;border:1px solid black;margin:4px; border-radius:5px;" class="activeeee">
+                            <a class="page-link " href="/Admin/Attendance/ShowListAtt/@(ViewBag.CurrentPage)">@ViewBag.CurrentPage</a>
+                        </li>
+
+                        @if (ViewBag.CurrentPage < ViewBag.TotalPage)
+                        {
+                            <li style="list-style-type:none;padding:10px;border:1px solid black;margin:4px; border-radius:5px;">
+                                <a class="page-link " href="/Admin/Attendance/ShowListAtt/@(ViewBag.CurrentPage + 1)">@((ViewBag.CurrentPage + 1))</a>
+                            </li>
+                        }
+                        @if (ViewBag.CurrentPage < ViewBag.TotalPage - 1)
+                        {
+                            <li style="list-style-type:none;padding:10px;border:1px solid black;margin:4px; border-radius:5px;">
+                                <a class="page-link " href="/Admin/Attendance/ShowListAtt/@(ViewBag.CurrentPage + 2)">@((ViewBag.CurrentPage + 2))</a>
+                            </li>
+                        }
+                        <li style="list-style-type:none;padding:10px;border:1px solid black;margin:4px; border-radius:5px;">
+                            <a class="page-link " href="/Admin/Attendance/ShowListAtt/@ViewBag.TotalPage">Final</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">
+                Number of sessions attended by the coach in 30 days
+            </h3>
+        </div>
+        <div class="card-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr class="text-center">
+                        <th>Trainer Name</th>
+                        <th>Number Of Sessions</th>
+                    </tr>
+                </thead>
+
+                <tbody id="projectList">
+                    @{
+                        // Tạo một Dictionary để lưu trữ tổng số buổi điểm danh cho mỗi Trainer
+                        Dictionary<string, int> trainerSessions = new Dictionary<string, int>();
+                    }
+
+                    @foreach (var item in ViewBag.Att)
+                    {
+                        // Kiểm tra xem Trainer có tồn tại không trước khi thêm vào Dictionary
+                        if (item.Trainer != null)
+                        {
+                            // Nếu tên của Trainer chưa có trong Dictionary, thêm mới và gán số buổi là NumberOfSessions
+                            if (!trainerSessions.ContainsKey(item.Trainer.TrainerName))
+                            {
+                                trainerSessions[item.Trainer.TrainerName] = item.NumberOfSessions;
+                            }
+                            else
+                            {
+                                // Nếu tên của Trainer đã tồn tại trong Dictionary, cộng thêm số buổi mới vào tổng
+                                trainerSessions[item.Trainer.TrainerName] += item.NumberOfSessions;
+                            }
+                        }
+                    }
+
+                    @foreach (var trainerSession in trainerSessions)
+                    {
+                        <tr>
+                            <td class="text-center">@trainerSession.Key</td>
+                            <td class="text-center">@trainerSession.Value</td>
+                        </tr>
+                    }
+
+
+            </table>
+        </div>
+    </div>
+</section>
+@section scripts {
+
+    <script>
+        // xóa 1 cột
+        function confirmDelete(id) {
+            if (confirm("Are you sure you want to delete?")) {
+                $.ajax({
+                    url: '@Url.Action("DropAtt", "Attendance")',
+                    type: 'POST',
+                    data: { id: id },
+                    success: function (response) {
+                        if (response.success) {
+                            alert(response.message);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        alert("An error occurred while deleting data.");
+                    }
+                });
+            }
+        }
+        //xóa all cột
+        $('body').on('click', '#BtnDeleteAll', function (e) {
+            e.preventDefault();
+            var str = "";
+            debugger;
+            var checkbox = $(this).parents('.card').find('tr td input:checkbox');
+            var i = 0;
+            checkbox.each(function () {
+                if (this.checked) {
+                    checkbox.attr('selected', 'checked');
+                    var _id = $(this).val();
+                    if (i === 0) {
+                        str += _id;
+                    } else {
+                        str += "," + _id;
+                    }
+                    i++;
+                } else {
+                    checkbox.attr('selected', '');
+
+                }
+            });
+            if (str.length > 0) {
+                var conf = confirm('Bạn có muốn xóa all bản ghi dưới đây hay không?');
+                if (conf === true) {
+                    $.ajax({
+                        url: '@Url.Action("DropAll", "Attendance")',
+                        type: 'POST',
+                        data: { ids: str },
+                        success: function (rs) {
+                            if (rs.success) {
+                                location.reload();
+                            }
+                        }
+                    });
+                }
+            }
+        });
+
+        //bật tắt all checkbox
+        $('body').on('change', '#SelectAll', function () {
+            var checkStatus = this.checked;
+            var checkbox = $(this).parents('.card-body').find('tr td input:checkbox');
+            checkbox.each(function () {
+                this.checked = checkStatus;
+                if (this.checked) {
+                    checkbox.attr('selected', 'checked');
+                } else {
+                    checkbox.attr('selected', '');
+                }
+            });
+        });
+    </script>
+}

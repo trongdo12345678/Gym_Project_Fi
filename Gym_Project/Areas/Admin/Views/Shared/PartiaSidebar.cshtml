@@ -41,12 +41,27 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a asp-controller="Expense" asp-action="Index" class="nav-link">
+                <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-th"></i>
                     <p>
-                        Attendance
+                        Manage Attendance
+                        <i class="right fas fa-angle-left"></i>
                     </p>
                 </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a asp-controller="Attendance" asp-action="ShowAttendance" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Attendance</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a asp-controller="Attendance" asp-action="ShowListAtt" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>List Attendance</p>
+                        </a>
+                    </li>
+                </ul>
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link">
@@ -58,13 +73,13 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a asp-controller="ProjectType" asp-action="index" class="nav-link">
+                        <a asp-controller="MemberPackage" asp-action="ShowListMemPack" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Member Package</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a asp-controller="Project" asp-action="index" class="nav-link">
+                        <a asp-controller="Package" asp-action="ShowListPack" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Package</p>
                         </a>

@@ -19,6 +19,8 @@ builder.Services.AddDbContext<GymProjectContext>(options =>
 
 builder.Services.AddScoped<ITrainerService, TrainerDao>();
 builder.Services.AddScoped<IAccountService, AccountDao>();
+builder.Services.AddScoped<IPackageService, PackageDao>();
+builder.Services.AddScoped<IAttendanceService, AttendanceDao>();
 
 var app = builder.Build();
 

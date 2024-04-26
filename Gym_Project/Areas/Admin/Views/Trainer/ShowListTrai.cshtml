@@ -71,7 +71,6 @@
                         <th>Email</th>
                         <th>Specialization</th>
                         <th>Phone</th>
-                        <th>Role</th>
                         <th>Function</th>
                     </tr>
                 </thead>
@@ -92,7 +91,6 @@
                             <td class="text-center">@item.Email</td>
                             <td class="text-center">@item.Specialization</td>
                             <td class="text-center">@item.Phone</td>
-                            <td class="text-center">@item.RoleId</td>
                             <td class="text-center">
                                 <a asp-area="admin" asp-controller="Trainer" asp-action="ShowUpdateTrainer" asp-route-id="@item.TrainerId" class="btn btm-sm btn-success">Edit</a>
                                 <a asp-area="admin" asp-controller="Trainer" asp-action="DropTrainer" asp-route-id="@item.TrainerId" onclick="confirmDelete(@item.TrainerId)" class="btn btm-sm btn-danger btnDelete">Delete</a>

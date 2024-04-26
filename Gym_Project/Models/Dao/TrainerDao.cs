@@ -91,7 +91,7 @@ public class TrainerDao : ITrainerService
             if(res != null)
             {
                 _context.Trainers.Remove(res);
-                return _context.SaveChanges() > 3;
+                return _context.SaveChanges() > 0;
             }
             return true;
         }
@@ -104,7 +104,7 @@ public class TrainerDao : ITrainerService
     {
         try
         {
-            var e = _context.Trainers.FirstOrDefault(e => e.TrainerId ==trai.TrainerId);
+            var e = _context.Trainers.FirstOrDefault(e => e.TrainerId == trai.TrainerId);
             if(e != null)
             {
                 e.TrainerName = trai.TrainerName;

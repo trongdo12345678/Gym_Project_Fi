@@ -69,15 +69,15 @@ public class TrainerController : Controller
 		{
 
 			_trainerService.AddTrainer(trai);
-		return RedirectToAction("ShowListtrai");
+		return RedirectToAction("ShowListTrai");
 		} 
 	}
 	public IActionResult DropTrainer(int id)
 	{
-	try
+		try
 		{
 			_trainerService.DropTrainer(id);
-			return RedirectToAction("ShowListtrai");
+			return RedirectToAction("ShowListTrai");
 		}catch (Exception)
 		{
 			return Json(new { success = false, message = "An error occurred while deleting data." });
@@ -131,7 +131,7 @@ public class TrainerController : Controller
         else
         {
             _trainerService.UpdateTrainer(trai);
-            return RedirectToAction("ShowListtrai");
+            return RedirectToAction("ShowListTrai");
         }
     }
 }
