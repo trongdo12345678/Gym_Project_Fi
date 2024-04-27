@@ -16,8 +16,8 @@ public class PackageController : Controller
 	[Route("/Admin/Package/ShowListPack")]
     public IActionResult ShowListPack(string searchtext, int page = 1)
     {
-        var (totalPage, currentPage) = _packageService.GetPaginationInfo(5, page, searchtext);
-        ViewBag.Package = _packageService.GetlistPbyPages(page, 5, searchtext);
+        var (totalPage, currentPage) = _packageService.GetPaginationInfo(10, page, searchtext);
+        ViewBag.Package = _packageService.GetlistPbyPages(page, 10, searchtext);
         ViewBag.TotalPage = totalPage;
         ViewBag.CurrentPage = currentPage;
         return View();

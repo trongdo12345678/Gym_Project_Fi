@@ -42,6 +42,54 @@
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">
+                Number of sessions attended by the coach in 30 days
+            </h3>
+        </div>
+        <div class="card-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr class="text-center">
+                        <th>Trainer Name</th>
+                        <th>Number Of Sessions</th>
+                    </tr>
+                </thead>
+
+                <tbody id="projectList">
+                    @{
+                        // Tạo một Dictionary để lưu trữ tổng số buổi điểm danh cho mỗi Trainer
+                        Dictionary<string, int> trainerSessions = new Dictionary<string, int>();
+                    }
+
+                    @foreach (var item in ViewBag.Att)
+                    {
+                        if (item.Trainer != null)
+                        {
+                            if (!trainerSessions.ContainsKey(item.Trainer.TrainerName))
+                            {
+                                trainerSessions[item.Trainer.TrainerName] = item.NumberOfSessions;
+                            }
+                            else
+                            {
+                                trainerSessions[item.Trainer.TrainerName] += item.NumberOfSessions;
+                            }
+                        }
+                    }
+
+                    @foreach (var trainerSession in trainerSessions)
+                    {
+                        <tr>
+                            <td class="text-center">@trainerSession.Key</td>
+                            <td class="text-center">@trainerSession.Value</td>
+                        </tr>
+                    }
+
+
+            </table>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">
                 List Attendance Deltails
             </h3>
             <div class="card-tools">
@@ -117,58 +165,6 @@
             </div>
         </div>
     </div>
-    
-    <div class="card">
-        <div class="card-header">
-            <h3 class="card-title">
-                Number of sessions attended by the coach in 30 days
-            </h3>
-        </div>
-        <div class="card-body">
-            <table class="table table-hover">
-                <thead>
-                    <tr class="text-center">
-                        <th>Trainer Name</th>
-                        <th>Number Of Sessions</th>
-                    </tr>
-                </thead>
-
-                <tbody id="projectList">
-                    @{
-                        // Tạo một Dictionary để lưu trữ tổng số buổi điểm danh cho mỗi Trainer
-                        Dictionary<string, int> trainerSessions = new Dictionary<string, int>();
-                    }
-
-                    @foreach (var item in ViewBag.Att)
-                    {
-                        // Kiểm tra xem Trainer có tồn tại không trước khi thêm vào Dictionary
-                        if (item.Trainer != null)
-                        {
-                            // Nếu tên của Trainer chưa có trong Dictionary, thêm mới và gán số buổi là NumberOfSessions
-                            if (!trainerSessions.ContainsKey(item.Trainer.TrainerName))
-                            {
-                                trainerSessions[item.Trainer.TrainerName] = item.NumberOfSessions;
-                            }
-                            else
-                            {
-                                // Nếu tên của Trainer đã tồn tại trong Dictionary, cộng thêm số buổi mới vào tổng
-                                trainerSessions[item.Trainer.TrainerName] += item.NumberOfSessions;
-                            }
-                        }
-                    }
-
-                    @foreach (var trainerSession in trainerSessions)
-                    {
-                        <tr>
-                            <td class="text-center">@trainerSession.Key</td>
-                            <td class="text-center">@trainerSession.Value</td>
-                        </tr>
-                    }
-
-
-            </table>
-        </div>
-    </div>
 </section>
 @section scripts {
 
@@ -191,7 +187,7 @@
                 });
             }
         }
-        //xóa all cột
+        //xóa all cột or nhiều cột
         $('body').on('click', '#BtnDeleteAll', function (e) {
             e.preventDefault();
             var str = "";
@@ -214,7 +210,7 @@
                 }
             });
             if (str.length > 0) {
-                var conf = confirm('Bạn có muốn xóa all bản ghi dưới đây hay không?');
+                var conf = confirm('Do you want to delete all records below?');
                 if (conf === true) {
                     $.ajax({
                         url: '@Url.Action("DropAll", "Attendance")',
@@ -229,7 +225,6 @@
                 }
             }
         });
-
         //bật tắt all checkbox
         $('body').on('change', '#SelectAll', function () {
             var checkStatus = this.checked;

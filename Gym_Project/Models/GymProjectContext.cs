@@ -17,6 +17,8 @@ public partial class GymProjectContext : DbContext
 
     public virtual DbSet<Attendance> Attendances { get; set; }
 
+    public virtual DbSet<ClassPack> ClassPacks { get; set; }
+
     public virtual DbSet<Feedback> Feedbacks { get; set; }
 
     public virtual DbSet<Member> Members { get; set; }
@@ -49,6 +51,27 @@ public partial class GymProjectContext : DbContext
             entity.HasOne(d => d.Trainer).WithMany(p => p.Attendances)
                 .HasForeignKey(d => d.TrainerId)
                 .HasConstraintName("FK__Attendanc__Train__403A8C7D");
+        });
+
+        modelBuilder.Entity<ClassPack>(entity =>
+        {
+            entity.HasKey(e => e.ClassId);
+
+            entity.ToTable("ClassPack");
+
+            entity.Property(e => e.ClassId).HasColumnName("ClassID");
+            entity.Property(e => e.AssignmentTime).HasMaxLength(50);
+            entity.Property(e => e.ClassName)
+                .HasMaxLength(250)
+                .IsUnicode(false);
+            entity.Property(e => e.MemPackId).HasColumnName("MemPackID");
+            entity.Property(e => e.MemberId).HasColumnName("MemberID");
+            entity.Property(e => e.PackageId).HasColumnName("PackageID");
+            entity.Property(e => e.TrainerId).HasColumnName("TrainerID");
+
+            entity.HasOne(d => d.MemPack).WithMany(p => p.ClassPacks)
+                .HasForeignKey(d => d.MemPackId)
+                .HasConstraintName("FK_ClassPack_MemberPackages");
         });
 
         modelBuilder.Entity<Feedback>(entity =>
@@ -100,9 +123,11 @@ public partial class GymProjectContext : DbContext
             entity.HasKey(e => e.MemPackId);
 
             entity.Property(e => e.MemPackId).HasColumnName("MemPackID");
+            entity.Property(e => e.ClassId).HasColumnName("ClassID");
             entity.Property(e => e.EndDate).HasColumnName("endDate");
             entity.Property(e => e.MemberId).HasColumnName("MemberID");
             entity.Property(e => e.PackageId).HasColumnName("PackageID");
+            entity.Property(e => e.PayId).HasColumnName("PayID");
             entity.Property(e => e.StartDate).HasColumnName("startDate");
             entity.Property(e => e.Status)
                 .HasMaxLength(50)
@@ -113,13 +138,13 @@ public partial class GymProjectContext : DbContext
                 .HasForeignKey(d => d.MemberId)
                 .HasConstraintName("FK_MemberPackages_Member");
 
-            entity.HasOne(d => d.MemberNavigation).WithMany(p => p.MemberPackages)
-                .HasForeignKey(d => d.MemberId)
-                .HasConstraintName("FK_MemberPackages_Payments");
-
             entity.HasOne(d => d.Package).WithMany(p => p.MemberPackages)
                 .HasForeignKey(d => d.PackageId)
                 .HasConstraintName("FK_MemberPackages_Package");
+
+            entity.HasOne(d => d.Pay).WithMany(p => p.MemberPackages)
+                .HasForeignKey(d => d.PayId)
+                .HasConstraintName("FK_MemberPackages_Payments1");
         });
 
         modelBuilder.Entity<Package>(entity =>

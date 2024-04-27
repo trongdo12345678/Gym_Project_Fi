@@ -17,8 +17,8 @@ public class AttendanceController : Controller
     public IActionResult ShowListAtt(int page = 1)
     {
 
-        var (totalPage, currentPage) = _attendanceService.GetPaginationInfo(5, page);
-        ViewBag.Att = _attendanceService.GetlistPbyPages(page, 5);
+        var (totalPage, currentPage) = _attendanceService.GetPaginationInfo(10, page);
+        ViewBag.Att = _attendanceService.GetlistPbyPages(page, 10);
         ViewBag.TotalPage = totalPage;
         ViewBag.CurrentPage = currentPage;
         return View();

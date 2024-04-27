@@ -13,8 +13,8 @@ public partial class Attendance
     public int? TrainerId { get; set; }
 
     public DateOnly? Date { get; set; }
-	[Required]
-	public bool? Status { get; set; }
+    [Required]
+    public bool? Status { get; set; }
 
     public virtual Trainer? Trainer { get; set; }
 }
