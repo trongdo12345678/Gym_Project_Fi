@@ -21,7 +21,8 @@ builder.Services.AddScoped<ITrainerService, TrainerDao>();
 builder.Services.AddScoped<IAccountService, AccountDao>();
 builder.Services.AddScoped<IPackageService, PackageDao>();
 builder.Services.AddScoped<IAttendanceService, AttendanceDao>();
-
+builder.Services.AddScoped<IMemberPackageService, MemberPackageDao>();
+builder.Services.AddScoped<IMemberService, MemberDao>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

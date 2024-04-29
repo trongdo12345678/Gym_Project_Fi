@@ -1,0 +1,34 @@
+﻿@model Gym_Project.Models.MemberPackage
+@{
+    Layout = "_Layout";
+}
+<div class="row">
+	<div class="col-md-12">
+		<div class="login-page">
+			<div class="login-title">
+				<h4 class="title">Registered Service Package</h4>
+				<div id="loginbox" class="loginbox">
+					<form asp-controller="MemberPackage" asp-action="AddMemPack" method="post" name="login" id="login-form">
+						<fieldset class="input">
+							<div class="form-group">
+								<label for="PayId">Pay</label>
+
+								<input asp-for="PayId" type="text" class="form-control"/>
+							</div>
+							<div class="form-group">
+								<input name="memberid" type="hidden" value="@ViewBag.MemberId" class="form-control" />
+							</div>
+							<div class="form-group">
+								<input name="packageid" type="hidden" class="form-control" value="@ViewBag.PackageId" />
+							</div>
+							<div class="remember">
+								<input type="submit" name="Submit" class="button" value="Registered"><div class="clear"></div>
+							</div>
+						</fieldset>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+</div>

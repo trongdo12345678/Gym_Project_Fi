@@ -1,0 +1,65 @@
+﻿@model Gym_Project.Models.MemberPackage
+@{
+    Layout = "_LayoutAdmin";
+}
+@if (TempData["Mess"] != null)
+{
+	<div class="alert alert-danger" role="alert">
+		@TempData["Mess"]
+	</div>
+}
+@section naviheader {
+
+	<!-- Left navbar links -->
+	<ul class="navbar-nav">
+		<li class="nav-item">
+			<a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+		</li>
+		<li class="nav-item d-none d-sm-inline-block">
+			<a href="#" class="nav-link"><b>update Status</b> </a>
+		</li>
+	</ul>
+}
+<form asp-area="Admin" asp-controller="MemberPackage" asp-action="UpdateStatus" enctype="multipart/form-data" method="post">
+	<div class="card-body">
+		<div class="bs-stepper-content">
+			<div id="logins-part" class="content" role="tabpanel" aria-labelledby="logins-part-trigger">
+				<div class="form-group">
+					<input asp-for="MemPackId" type="hidden" class="mdc-text-field__input form-control" readonly />
+				</div>
+				<div class="form-group">
+					<input asp-for="MemberId" type="hidden" class="mdc-text-field__input form-control" readonly />
+				</div>
+				<div class="form-group">
+					<input asp-for="StartDate" type="hidden" class="mdc-text-field__input form-control" readonly />
+				</div>
+				<div class="form-group">
+					<input asp-for="PayId" type="hidden" class="mdc-text-field__input form-control" readonly />
+				</div>
+				<div class="form-group">
+					<input asp-for="PackageId" type="hidden" class="mdc-text-field__input form-control" readonly />
+				</div>
+				<div class="form-group">
+					<input asp-for="TrainerId" type="hidden" class="mdc-text-field__input form-control" readonly />
+				</div>
+				<div class="form-group">
+					<input asp-for="ClassId" type="hidden" class="mdc-text-field__input form-control" readonly />
+				</div>
+				<div class="form-group">
+					<input asp-for="EndDate" type="hidden" class="mdc-text-field__input form-control" readonly />
+				</div>
+				<div class="form-group">
+					<label for="Status">Status</label>
+					<select asp-for="Status" class="form-control">
+						<option value="Expired">Expired</option>
+						<option value="Package has been renewed">Package has been renewed</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<a asp-action="ShowListMemPack" class="btn btn-danger">Exit</a>
+					<button type="submit" class="btn btn-primary">Save</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>

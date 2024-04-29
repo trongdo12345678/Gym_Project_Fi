@@ -42,8 +42,8 @@ public class AccountDao : IAccountService
     //login user
     public bool LoginUser(string username, string password)
     {
-        var trainer = _context.Members.Include(m => m.Role).FirstOrDefault(m => m.Username == username);
-        if (trainer != null && VerifyPassword(password, trainer.Password) && trainer.RoleId == 3)
+        var member = _context.Members.Include(m => m.Role).FirstOrDefault(m => m.Username == username);
+        if (member != null && VerifyPassword(password, member.Password) && member.RoleId == 3)
         {
             _httpContextAccessor.HttpContext.Session.SetString("LoggedInUser", username);
             return true;
@@ -84,7 +84,7 @@ public class AccountDao : IAccountService
         member.Password = HashPassword(member.Password);
 
 
-        var userRole = _context.Roles.FirstOrDefault(r => r.RoleId == 2);
+        var userRole = _context.Roles.FirstOrDefault(r => r.RoleId == 3);
         if (userRole != null)
         {
             member.RoleId = userRole.RoleId;
@@ -92,7 +92,7 @@ public class AccountDao : IAccountService
         else
         {
 
-            var newUserRole = new Role { RoleId = 2, RoleName = "User" };
+            var newUserRole = new Role { RoleId = 3, RoleName = "User" };
             _context.Roles.Add(newUserRole);
             _context.SaveChanges();
             member.RoleId = newUserRole.RoleId;
@@ -104,7 +104,7 @@ public class AccountDao : IAccountService
         return true;
     }
     // LưuThông tin người dùng
-    public bool SaveUserInfo(int userId, string name, string address, string phone)
+    public bool SaveUserInfo(int userId, string name, string address)
     {
         try
         {
@@ -114,12 +114,11 @@ public class AccountDao : IAccountService
 
                 existingUser.MemName = name;
                 existingUser.Address = address;
-                existingUser.Phone = phone;
 
-                _context.SaveChanges();
+                
 
-                return true;
-            }
+                return _context.SaveChanges() > 0;
+			}
             else
             {
                 return false;

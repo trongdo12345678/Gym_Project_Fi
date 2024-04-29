@@ -1,0 +1,44 @@
+﻿@model Gym_Project.Models.Package
+@{
+    Layout = "_Layout";
+}
+
+<div class="news_section layout_padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <h1 class="news_taital">Details Package</h1>
+                <p class="news_text">For some, the gym is a place of personal challenge and growth,
+                    <br> pushing oneself to achieve fitness goals and surpass previous limits. 
+                    <br>For others, it's a place of relaxation and stress relief, offering a break from the demands of daily life.
+                </p>
+                <h4>Trainer: @ViewBag.Pack.Trainer?.TrainerName</h4>
+            </div>
+        </div>
+        <div class="news_section_2">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="news_img"><img src="@ViewBag.Pack.Img"></div>
+                </div>
+                <div class="col-md-6">
+                    <h1 class="give_taital">@ViewBag.Pack.PackageName</h1>
+                    <p class="ipsum_text">
+                        @ViewBag.Pack.Description
+                    </p>
+                    <h5 class="raised_text">Cost: <strike>@String.Format("{0:#,##0}", ViewBag.Pack.Cost) đ</strike>  <span class="goal_text">@String.Format("{0:#,##0}", ViewBag.Pack.Discount) đ</span></h5>
+                    <div class="donate_btn_main">
+
+                        @if (ViewBag.checklogin == "")
+                        {
+                            <div class="donate_bt"><a asp-controller="UserLogin" asp-action="LoginUserWeb">Register Now</a></div>
+                        }
+                        else
+                        {
+                            <div class="donate_bt"><a asp-controller="MemberPackage" asp-action="ShowViewMemPack" asp-route-id="@ViewBag.Pack.PackageId" asp-route-Idmen="@ViewBag.memlogined.MemberId">Register Now</a></div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,133 @@
+﻿@model Gym_Project.Models.MemberPackage
+@{
+    Layout = "_LayoutAdmin";
+}
+<!-- Left navbar links -->
+@section naviheader {
+
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="#" class="nav-link">Home</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="#" class="nav-link">Member Package</a>
+        </li>
+    </ul>
+}
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Manage Member Package</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a>Home</a></li>
+                    <li class="breadcrumb-item active">Member Package</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+<style>
+    .activeeee {
+        background-color: #0d6efd !important;
+    }
+</style>
+<!-- Main content -->
+<section class="content">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">
+                List User Registered and confirm
+            </h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-9">
+                    <form asp-controller="MemberPackage" asp-action="ShowListMemPack" method="get">
+                        <div class="input-group input-group-sm">
+                            <input type="text" name="searchtext" class="form-control" />
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-info btn-flat">Search</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <table class="table table-hover">
+                <thead>
+                    <tr class="text-center">
+                        <th>Name Customer</th>
+                        <th>Payment methods</th>
+                        <th>Trainer Manager</th>
+                        <th>Start Time</th>
+                        <th>End Time</th>
+                        <th>Status</th>
+                        <th>Funtion</th>
+                    </tr>
+                </thead>
+
+                <tbody id="projectList">
+
+                    @foreach (var item in ViewBag.PackMemAll)
+                    {
+                        <tr>
+                            <td class="text-center">@item.Member?.Username</td>
+                            <td class="text-center">@item.Pay?.PaymentMethod</td>
+                            <td class="text-center">@item.Trainer?.TrainerName</td>
+                            <td class="text-center">@item.StartDate</td>
+                            <td class="text-center">@item.EndDate</td>
+                            <td class="text-center">@item.Status</td>
+                            <td class="text-center">
+                                <a asp-area="admin" asp-controller="MemberPackage" asp-action="ShowUpdateStatus" asp-route-id="@item.MemPackId" class="btn btm-sm btn-success">Update Status</a>
+                            </td>
+                        </tr>
+                    }
+            </table>
+            <div class="row">
+                <div class="col-md-5">
+                </div>
+                <div class="col-md-7 mt-3">
+                    <ul style="display:flex;">
+                        <li style="list-style-type:none;padding:10px;border:1px solid black;margin:4px; border-radius:5px;">
+                            <a class="page-link " href="/Admin/MemberPackage/ShowlistUserSend/1">Firstly</a>
+                        </li>
+
+                        @if (ViewBag.CurrentPage > 1)
+                        {
+                            <li style="list-style-type:none;padding:10px;border:1px solid black;margin:4px; border-radius:5px;">
+                                <a class="page-link " href="/Admin/MemberPackage/ShowlistUserSend/@(ViewBag.CurrentPage - 1)">@((ViewBag.CurrentPage - 1))</a>
+                            </li>
+                        }
+
+                        <li style="list-style-type:none;padding:10px;border:1px solid black;margin:4px; border-radius:5px;" class="activeeee">
+                            <a class="page-link " href="/Admin/MemberPackage/ShowlistUserSend/@(ViewBag.CurrentPage)">@ViewBag.CurrentPage</a>
+                        </li>
+
+                        @if (ViewBag.CurrentPage < ViewBag.TotalPage)
+                        {
+                            <li style="list-style-type:none;padding:10px;border:1px solid black;margin:4px; border-radius:5px;">
+                                <a class="page-link " href="/Admin/MemberPackage/ShowlistUserSend/@(ViewBag.CurrentPage + 1)">@((ViewBag.CurrentPage + 1))</a>
+                            </li>
+                        }
+                        @if (ViewBag.CurrentPage < ViewBag.TotalPage - 1)
+                        {
+                            <li style="list-style-type:none;padding:10px;border:1px solid black;margin:4px; border-radius:5px;">
+                                <a class="page-link " href="/Admin/MemberPackage/ShowlistUserSend/@(ViewBag.CurrentPage + 2)">@((ViewBag.CurrentPage + 2))</a>
+                            </li>
+                        }
+                        <li style="list-style-type:none;padding:10px;border:1px solid black;margin:4px; border-radius:5px;">
+                            <a class="page-link " href="/Admin/MemberPackage/ShowlistUserSend/@ViewBag.TotalPage">Final</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>

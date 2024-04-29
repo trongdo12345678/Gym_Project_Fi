@@ -1,0 +1,350 @@
+﻿@model Gym_Project.Models.Package
+@{
+	Layout = "_Layout";
+}
+
+<body>
+	 <div class="main">
+	 	 <div class="container">
+			<!-- start content-top -->
+			<div class="row content-top">
+				 <div class="col-md-5">
+				  <img src="~/Content/images/pic.png" class="img-responsive" alt=""/> 
+			     </div>
+				 <div class="col-md-7 content_left_text">
+				   <h3>Lorem ipsum dolor sit!</h3>
+				   <p>aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
+				 </div>
+            </div>
+		 </div>
+		<div class="modalsaveprof" onclick="closemodel()" style="transition:0.5s ;position:fixed;width:100%;height:100%;background-color:#181818a1;top:0;display:none; z-index:100;">
+			<form asp-controller="UserLogin" asp-action="SaveInfo" method="post">
+				<div class="donation_box formsaves">
+					<h4 class="donation_taital">user information</h4>
+					<div class="mail_box">
+						<input type="text" class="mail_text" placeholder="Member Name" name="MemName">
+						<input type="text" class="mail_text" placeholder="Address" name="Address">
+						<div class="send_bt"><button type="submit">Save</button></div>
+					</div>
+				</div>
+			</form>
+			<form asp-controller="UserLogin" asp-action="LogOut">
+				<div class="send_bt"><button type="submit">Log Out </button></div>
+			</form>
+
+		</div>
+		<!-- end content-top -->
+		<div class="container">
+			<div class="mission_section layout_padding">
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-12">
+							<h1 class="mission_taital">Mission causes</h1>
+							<p class="mission_text">going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. </p>
+						</div>
+					</div>
+				</div>
+				<div class="mission_section_2">
+					<div class="row">
+
+						@foreach (var pack in ViewBag.Pack)
+						{
+							<div class="col-md-6 mt-3">
+								<div class="container_main">
+									<img src="@pack.Img" alt="Avatar" class="image">
+									<div class="overlay">
+										<div class="text">
+											<h4 class="some_text">@pack.PackageName</h4>
+											<p class="alteration_text">@pack.Description</p>
+											<div class="btn_main">
+												<div class="donate_bt"><a asp-controller="UserLayout" asp-action="DetailsService" asp-route-id="@pack.PackageId">Read More</a></div>
+												@if (ViewBag.checklogin == "")
+												{
+													<div class="donate_bt"><a asp-controller="UserLogin" asp-action="LoginUserWeb">Register Now</a></div>
+												}
+												else
+												{
+													<div class="donate_bt"><a asp-controller="MemberPackage" asp-action="ShowViewMemPack" asp-route-id="@pack.PackageId" asp-route-Idmen="@ViewBag.memlogined.MemberId">Register Now</a></div>
+
+												}
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						}
+						
+					</div>
+					<div class="row">
+						<div class="col-md-5">
+						</div>
+						<div class="col-md-7 mt-3">
+							<ul style="display:flex;">
+								<li style="list-style-type:none;padding:10px;border:1px solid black;margin:4px;">
+									<a class="page-link " href="/UserLayout/Index/1">Firstly</a>
+								</li>
+
+								@if (ViewBag.CurrentPage > 1)
+								{
+									<li style="list-style-type:none;padding:10px;border:1px solid black;margin:4px;">
+										<a class="page-link " href="/UserLayout/Index/@(ViewBag.CurrentPage - 1)">@((ViewBag.CurrentPage - 1))</a>
+									</li>
+								}
+
+								<li style="list-style-type:none;padding:10px;border:1px solid black;margin:4px;" class="activeeee">
+									<a class="page-link " href="/UserLayout/Index/@(ViewBag.CurrentPage)">@ViewBag.CurrentPage</a>
+								</li>
+
+								@if (ViewBag.CurrentPage < ViewBag.TotalPage)
+								{
+									<li style="list-style-type:none;padding:10px;border:1px solid black;margin:4px;">
+										<a class="page-link " href="/UserLayout/Index/@(ViewBag.CurrentPage + 1)">@((ViewBag.CurrentPage + 1))</a>
+									</li>
+								}
+								@if (ViewBag.CurrentPage < ViewBag.TotalPage - 1)
+								{
+									<li style="list-style-type:none;padding:10px;border:1px solid black;margin:4px;">
+										<a class="page-link " href="/UserLayout/Index/@(ViewBag.CurrentPage + 2)">@((ViewBag.CurrentPage + 2))</a>
+									</li>
+								}
+								<li style="list-style-type:none;padding:10px;border:1px solid black;margin:4px;">
+									<a class="page-link " href="/UserLayout/Index/@ViewBag.TotalPage">Final</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		  <!-- end content-middle -->
+		   <div class="row about">
+		      <div class="col-md-8">
+		     	 <h3 class="m_2">All Classes</h3>
+		     	 <div class="classes">
+		     	 	<div class="cardio_list">
+		     	 	  <div class="cardio_sublist">
+			     	 	<ul class="cardio">
+			     	 		<li><i class="clock"> </i><span>Cardio Fitness</span></li>
+			     	 	</ul>
+			     	 	<div class="social-media">
+						     <ul>
+						        <li> <span class="simptip-position-bottom simptip-movable" data-tooltip="timetable"><a href="#" target="_blank"> </a></span></li>
+						        <li><span class="simptip-position-bottom simptip-movable" data-tooltip="Send to"><a href="#" target="_blank"> </a> </span></li>
+						        <li><span class="simptip-position-bottom simptip-movable" data-tooltip="like it"><a href="#" target="_blank"> </a></span></li>
+						        <li><span class="simptip-position-bottom simptip-movable" data-tooltip="share"><a href="#" target="_blank"> </a></span></li>
+						    </ul>
+					   </div>
+			     	 	<div class="clear"></div>
+		     	 	  </div>
+		     	 	  <div class="cardio_sublist">
+			     	 	<ul class="cardio">
+			     	 		<li><i class="clock"> </i><span>Spinning</span></li>
+			     	 	</ul>
+			     	 	<div class="social-media">
+						     <ul>
+						        <li> <span class="simptip-position-bottom simptip-movable" data-tooltip="timetable"><a href="#" target="_blank"> </a></span></li>
+						        <li><span class="simptip-position-bottom simptip-movable" data-tooltip="Send to"><a href="#" target="_blank"> </a> </span></li>
+						        <li><span class="simptip-position-bottom simptip-movable" data-tooltip="like it"><a href="#" target="_blank"> </a></span></li>
+						        <li><span class="simptip-position-bottom simptip-movable" data-tooltip="share"><a href="#" target="_blank"> </a></span></li>
+						    </ul>
+					   </div>
+			     	 	<div class="clear"></div>
+		     	 	  </div>
+		     	 	  <div class="cardio_sublist">
+			     	 	<ul class="cardio">
+			     	 		<li><i class="clock"> </i><span>Pilates</span></li>
+			     	 	</ul>
+			     	 	<div class="social-media">
+						     <ul>
+						        <li> <span class="simptip-position-bottom simptip-movable" data-tooltip="timetable"><a href="#" target="_blank"> </a></span></li>
+						        <li><span class="simptip-position-bottom simptip-movable" data-tooltip="Send to"><a href="#" target="_blank"> </a> </span></li>
+						        <li><span class="simptip-position-bottom simptip-movable" data-tooltip="like it"><a href="#" target="_blank"> </a></span></li>
+						        <li><span class="simptip-position-bottom simptip-movable" data-tooltip="share"><a href="#" target="_blank"> </a></span></li>
+						    </ul>
+					   </div>
+			     	 	<div class="clear"></div>
+		     	 	  </div>
+		     	 	   <div class="cardio_sublist">
+			     	 	<ul class="cardio">
+			     	 		<li><i class="clock"> </i><span>Boxing</span></li>
+			     	 	</ul>
+			     	 	<div class="social-media">
+						     <ul>
+						        <li> <span class="simptip-position-bottom simptip-movable" data-tooltip="timetable"><a href="#" target="_blank"> </a></span></li>
+						        <li><span class="simptip-position-bottom simptip-movable" data-tooltip="Send to"><a href="#" target="_blank"> </a> </span></li>
+						        <li><span class="simptip-position-bottom simptip-movable" data-tooltip="like it"><a href="#" target="_blank"> </a></span></li>
+						        <li><span class="simptip-position-bottom simptip-movable" data-tooltip="share"><a href="#" target="_blank"> </a></span></li>
+						    </ul>
+					   </div>
+			     	 	<div class="clear"></div>
+		     	 	  </div>
+		     	 	</div>
+		     	 	<div class="cardio_list1">
+		     	 	  <div class="cardio_sublist">
+			     	 	<ul class="cardio">
+			     	 		<li><i class="clock"> </i><span>Aerobics</span></li>
+			     	 	</ul>
+			     	 	<div class="social-media">
+						     <ul>
+						        <li> <span class="simptip-position-bottom simptip-movable" data-tooltip="timetable"><a href="#" target="_blank"> </a></span></li>
+						        <li><span class="simptip-position-bottom simptip-movable" data-tooltip="Send to"><a href="#" target="_blank"> </a> </span></li>
+						        <li><span class="simptip-position-bottom simptip-movable" data-tooltip="like it"><a href="#" target="_blank"> </a></span></li>
+						        <li><span class="simptip-position-bottom simptip-movable" data-tooltip="share"><a href="#" target="_blank"> </a></span></li>
+						    </ul>
+					   </div>
+			     	 	<div class="clear"></div>
+		     	 	  </div>
+		     	 	  <div class="cardio_sublist">
+			     	 	<ul class="cardio">
+			     	 		<li><i class="clock"> </i><span>Kik Boxing</span></li>
+			     	 	</ul>
+			     	 	<div class="social-media">
+						     <ul>
+						        <li> <span class="simptip-position-bottom simptip-movable" data-tooltip="timetable"><a href="#" target="_blank"> </a></span></li>
+						        <li><span class="simptip-position-bottom simptip-movable" data-tooltip="Send to"><a href="#" target="_blank"> </a> </span></li>
+						        <li><span class="simptip-position-bottom simptip-movable" data-tooltip="like it"><a href="#" target="_blank"> </a></span></li>
+						        <li><span class="simptip-position-bottom simptip-movable" data-tooltip="share"><a href="#" target="_blank"> </a></span></li>
+						    </ul>
+					   </div>
+			     	 	<div class="clear"></div>
+		     	 	  </div>
+		     	 	  <div class="cardio_sublist">
+			     	 	<ul class="cardio">
+			     	 		<li><i class="clock"> </i><span>CrossFit</span></li>
+			     	 	</ul>
+			     	 	<div class="social-media">
+						     <ul>
+						        <li> <span class="simptip-position-bottom simptip-movable" data-tooltip="timetable"><a href="#" target="_blank"> </a></span></li>
+						        <li><span class="simptip-position-bottom simptip-movable" data-tooltip="Send to"><a href="#" target="_blank"> </a> </span></li>
+						        <li><span class="simptip-position-bottom simptip-movable" data-tooltip="like it"><a href="#" target="_blank"> </a></span></li>
+						        <li><span class="simptip-position-bottom simptip-movable" data-tooltip="share"><a href="#" target="_blank"> </a></span></li>
+						    </ul>
+					   </div>
+			     	 	<div class="clear"></div>
+		     	 	  </div>
+		     	 	   <div class="cardio_sublist">
+			     	 	<ul class="cardio">
+			     	 		<li><i class="clock"> </i><span>Yoga</span></li>
+			     	 	</ul>
+			     	 	<div class="social-media">
+						     <ul>
+						        <li> <span class="simptip-position-bottom simptip-movable" data-tooltip="timetable"><a href="#" target="_blank"> </a></span></li>
+						        <li><span class="simptip-position-bottom simptip-movable" data-tooltip="Send to"><a href="#" target="_blank"> </a> </span></li>
+						        <li><span class="simptip-position-bottom simptip-movable" data-tooltip="like it"><a href="#" target="_blank"> </a></span></li>
+						        <li><span class="simptip-position-bottom simptip-movable" data-tooltip="share"><a href="#" target="_blank"> </a></span></li>
+						    </ul>
+					   </div>
+			     	 	<div class="clear"></div>
+		     	 	  </div>
+		     	 	</div>
+		     	 	<div class="clear"></div>
+		     	 </div>
+				</div>
+				<div class="col-md-4">
+				  <h3 class="m_4">Membership Prices</h3>
+				  <div class="members">
+				   <h4 class="m_3">25% Discount of for all members</h4>
+				   <p>Discount on services and <br>treatments at the GymBase for<br> all membership cards holders.</p>
+				   <div class="btn1">
+				    <a href="#">More</a>
+			       </div>
+				  </div>
+			    </div>
+			    <div class="clear"></div>
+			</div>
+			@* thêm trainer vào đây *@
+			<div class="row content_middle_bottom"></div>
+
+      <div class="row about">
+		 <div class="col-md-8">
+		     	 <h3 class="m_2">Gallery</h3>
+		     	 <div id="ca-container" class="ca-container">
+				    <div class="ca-wrapper">
+				         <div class="ca-item ca-item-1">
+						   <div class="ca-item-main">
+								<div class="ca-icon"> </div>
+								<div class="ca-icon1"> </div>
+							</div>
+						  </div>
+						<div class="ca-item ca-item-2">
+							<div class="ca-item-main">
+								<div class="ca-icon"> </div>
+								<div class="ca-icon2"> </div>
+							</div>
+						</div>
+						<div class="ca-item ca-item-3">
+							<div class="ca-item-main">
+								<div class="ca-icon"> </div>
+								<div class="ca-icon3"> </div>
+							</div>
+						</div>
+						<div class="ca-item ca-item-4">
+							<div class="ca-item-main">
+								<div class="ca-icon"> </div>
+								<div class="ca-icon4"> </div>
+						     </div>
+						</div>
+						<div class="ca-item ca-item-5">
+							<div class="ca-item-main">
+								<div class="ca-icon"> </div>
+								<div class="ca-icon5"> </div>
+							</div>
+						</div>
+						<div class="ca-item ca-item-6">
+							<div class="ca-item-main">
+								<div class="ca-icon"> </div>
+								<div class="ca-icon6"> </div>
+							</div>
+						</div>
+						<div class="ca-item ca-item-7">
+							<div class="ca-item-main">
+								<div class="ca-icon"> </div>
+								<div class="ca-icon7"> </div>
+							</div>
+						</div>
+						<div class="ca-item ca-item-8">
+							<div class="ca-item-main">
+								<div class="ca-icon"> </div>
+								<div class="ca-icon"> </div>
+							</div>
+						</div>
+			    </div>
+			 </div>
+				    <script type="text/javascript">
+						$('#ca-container').contentcarousel();
+					</script>
+		   </div>
+		   <div class="col-md-4">
+		   	 <h3 class="m_2">Partner</h3>
+			  <ul class="partner">
+			  	<li><img src="~/Content/images/p6.png" alt=""/></li>
+			  	<li><img src="~/Content/images/p5.png" alt=""/></li>
+			  	<li><img src="~/Content/images/p4.png" alt=""/></li>
+			  	<li><img src="~/Content/images/p3.png" alt=""/></li>
+			  	<li><img src="~/Content/images/p2.png" alt=""/></li>
+			  	<li><img src="~/Content/images/p1.png" alt=""/></li>
+			  	 <div class="clear"></div>
+			  </ul>
+		   </div>
+	       <div class="clear"></div>
+	      </div>
+	     </div>
+		</div>
+	    <div class="map">
+			<iframe width="100%" height="450" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=United+Kingdom&amp;aq=0&amp;oq=un&amp;sll=37.0625,-95.677068&amp;sspn=48.956293,107.138672&amp;ie=UTF8&amp;hq=&amp;hnear=United+Kingdom&amp;ll=55.378051,-3.435973&amp;spn=135.795411,68.554687&amp;t=m&amp;z=2&amp;output=embed"> </iframe><br /><small><a href="http://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=United+Kingdom&amp;aq=0&amp;oq=un&amp;sll=37.0625,-95.677068&amp;sspn=48.956293,107.138672&amp;ie=UTF8&amp;hq=&amp;hnear=United+Kingdom&amp;ll=55.378051,-3.435973&amp;spn=135.795411,68.554687&amp;t=m&amp;z=2" style="color:#666;font-size:12px;text-align:left"> </a></small>
+			<div class="opening_hours">
+			 <ul class="times">
+			 	<h3>Opening <span class="opening">Hours</span></h3>
+			 	<li><i class="calender"> </i><span class="week">Monday</span><div class="hours">h.6:00-h.24:00</div>  <div class="clear"></div></li>
+			 	<li><i class="calender"> </i><span class="week">Tuesday</span><div class="hours">h.6:00-h.24:00</div>  <div class="clear"></div></li>
+			 	<li><i class="calender"> </i><span class="week">Wednesday</span><div class="hours">h.6:00-h.24:00</div>  <div class="clear"></div></li>
+			 	<li><i class="calender"> </i><span class="week">Thrusday</span><div class="hours">h.6:00-h.24:00</div>  <div class="clear"></div></li>
+			 	<li><i class="calender"> </i><span class="week">Friday</span><div class="hours">h.6:00-h.24:00</div>  <div class="clear"></div></li>
+			 	<li><i class="calender"> </i><span class="week">Saturday</span><div class="hours">h.6:00-h.24:00</div>  <div class="clear"></div></li>
+			 	<li><i class="calender"> </i><span class="week">Sunday</span><div class="hours">h.6:00-h.24:00</div>  <div class="clear"></div></li>
+			    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet</p>
+			 	<h4>Enjoy it!</h4>
+			 </ul>
+		    </div>
+		 </div>
+</body>
+</html>

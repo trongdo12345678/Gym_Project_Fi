@@ -29,5 +29,7 @@ public partial class MemberPackage
 
     public virtual Package? Package { get; set; }
 
+	public virtual Trainer? Trainer { get; set; }
+
     public virtual Payment? Pay { get; set; }
 }
