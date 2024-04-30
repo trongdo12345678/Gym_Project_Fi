@@ -1,0 +1,47 @@
+﻿@model Gym_Project.Models.Payment
+@{
+    Layout = "_Layout";
+}
+<div class="text-center">
+    <h1 class="display-4">Package Payment</h1>
+    <div class="contact_section layout_padding">
+        <div class="container">
+            <div class="contact_section_2">
+                <div class="row">
+                    <div class="col-md-6">
+                        <form asp-controller="Payment" asp-action="CreatePaymentUrl" id="frmCreateOrder" method="POST">
+                            <div class="mail_section_1">
+                                <input type="hidden" name="packageid" value="@ViewBag.PackageId" />
+                                <input type="hidden" name="memberid" value="@ViewBag.MemberId" />
+                                <input type="text" id="targetAmountInput" name="Amount" class="mail_text_1" placeholder="Amount you want to contribute" required>
+                                <input type="hidden" asp-for="PaymentMethod" value="MOMO" />
+                                <input type="hidden" asp-for="PaymentDate" />
+                                <button type="submit" class="send_bt btn btn-danger" style="margin-top:20px;padding:10px;">Bank MoMo</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-6">
+                        <div>
+                            <img src="~/cont/images/momo.jpeg" width="200" height="200" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+
+    //gía tiền
+    $(document).ready(function () {
+        $('#targetAmountInput').on('input', function () {
+            var inputVal = $(this).val();
+            var newVal = inputVal.replace(/\D/g, '');
+            newVal = newVal.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+            $(this).data('raw-value', newVal);
+            $(this).val(newVal);
+        });
+    });
+</script>

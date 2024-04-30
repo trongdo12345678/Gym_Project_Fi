@@ -11,9 +11,19 @@
 					<form asp-controller="MemberPackage" asp-action="AddMemPack" method="post" name="login" id="login-form">
 						<fieldset class="input">
 							<div class="form-group">
-								<label for="PayId">Pay</label>
-
-								<input asp-for="PayId" type="text" class="form-control"/>
+								<fieldset class="section">
+									<h3>Please choose payment method <span>*</span></h3>
+									<div class="row cf">
+										<div class="four col">
+											<input type="radio" name="PayId" value="1" >	
+											<img src="~/cont/images/momo.jpeg"  width="200px" height="150px"/>
+										</div>
+										<div class="four col">
+											<input type="radio" name="PayId" value="2">
+											<img src="~/cont/images/vnpayy.png" width="200px" height="150px" />
+										</div>
+									</div>
+								</fieldset>
 							</div>
 							<div class="form-group">
 								<input name="memberid" type="hidden" value="@ViewBag.MemberId" class="form-control" />
@@ -21,14 +31,19 @@
 							<div class="form-group">
 								<input name="packageid" type="hidden" class="form-control" value="@ViewBag.PackageId" />
 							</div>
+
 							<div class="remember">
 								<input type="submit" name="Submit" class="button" value="Registered"><div class="clear"></div>
+								
 							</div>
 						</fieldset>
 					</form>
+
 				</div>
 			</div>
 		</div>
 		<div class="clear"></div>
 	</div>
 </div>
+
+

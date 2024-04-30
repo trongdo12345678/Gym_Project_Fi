@@ -1,0 +1,13 @@
+﻿@model ProGCoder_MomoAPI.Models.Momo.MomoExecuteResponseModel
+@{
+    Layout = "_Layout";
+}
+<div class="text-center">
+    <div class="container">
+        <h1 class="text-success">Payment Success</h1>
+        <p>Order ID: <strong>@Model.OrderId</strong></p>
+        <p>Amount: <strong>@String.Format("{0:#,##0}", Model.Amount)</strong></p>
+        <p><strong>@Model.OrderInfo</strong></p>
+
+    </div>
+</div>

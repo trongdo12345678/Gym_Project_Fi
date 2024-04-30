@@ -18,4 +18,8 @@ public partial class Payment
     public DateOnly? PaymentDate { get; set; }
 
     public virtual ICollection<MemberPackage> MemberPackages { get; set; } = new List<MemberPackage>();
+
+    public virtual Package? Package { get; set; }
+
+    public virtual Member? Member { get; set; }
 }

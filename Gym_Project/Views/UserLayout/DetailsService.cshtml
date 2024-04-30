@@ -25,7 +25,7 @@
                     <p class="ipsum_text">
                         @ViewBag.Pack.Description
                     </p>
-                    <h5 class="raised_text">Cost: <strike>@String.Format("{0:#,##0}", ViewBag.Pack.Cost) đ</strike>  <span class="goal_text">@String.Format("{0:#,##0}", ViewBag.Pack.Discount) đ</span></h5>
+                    <h5 class="raised_text"><strike>Cost: @String.Format("{0:#,##0}", ViewBag.Pack.Cost) đ</strike> <br> <span class="goal_text">Discount: @String.Format("{0:#,##0}", ViewBag.Pack.Discount) đ</span></h5>
                     <div class="donate_btn_main">
 
                         @if (ViewBag.checklogin == "")
@@ -35,6 +35,7 @@
                         else
                         {
                             <div class="donate_bt"><a asp-controller="MemberPackage" asp-action="ShowViewMemPack" asp-route-id="@ViewBag.Pack.PackageId" asp-route-Idmen="@ViewBag.memlogined.MemberId">Register Now</a></div>
+                            <div class="donate_bt"><a asp-controller="Payment" asp-action="Index" asp-route-id="@ViewBag.Pack.PackageId" asp-route-Idmen="@ViewBag.memlogined.MemberId">Register Bank Now</a></div>
                         }
                     </div>
                 </div>

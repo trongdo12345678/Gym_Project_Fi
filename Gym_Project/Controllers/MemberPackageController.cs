@@ -16,6 +16,7 @@ public class MemberPackageController : Controller
 		ViewBag.PackageId = id;
 
 		ViewBag.MemberId = Idmen;
+
 		return View();
 	}
 	[HttpPost]

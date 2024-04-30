@@ -64,14 +64,6 @@ public partial class GymProjectContext : DbContext
             entity.Property(e => e.ClassName)
                 .HasMaxLength(250)
                 .IsUnicode(false);
-            entity.Property(e => e.MemPackId).HasColumnName("MemPackID");
-            entity.Property(e => e.MemberId).HasColumnName("MemberID");
-            entity.Property(e => e.PackageId).HasColumnName("PackageID");
-            entity.Property(e => e.TrainerId).HasColumnName("TrainerID");
-
-            entity.HasOne(d => d.MemPack).WithMany(p => p.ClassPacks)
-                .HasForeignKey(d => d.MemPackId)
-                .HasConstraintName("FK_ClassPack_MemberPackages");
         });
 
         modelBuilder.Entity<Feedback>(entity =>
@@ -134,6 +126,10 @@ public partial class GymProjectContext : DbContext
                 .IsUnicode(false);
             entity.Property(e => e.TrainerId).HasColumnName("TrainerID");
 
+            entity.HasOne(d => d.Class).WithMany(p => p.MemberPackages)
+                .HasForeignKey(d => d.ClassId)
+                .HasConstraintName("FK_MemberPackages_ClassPack");
+
             entity.HasOne(d => d.Member).WithMany(p => p.MemberPackages)
                 .HasForeignKey(d => d.MemberId)
                 .HasConstraintName("FK_MemberPackages_Member");
@@ -144,7 +140,7 @@ public partial class GymProjectContext : DbContext
 
             entity.HasOne(d => d.Pay).WithMany(p => p.MemberPackages)
                 .HasForeignKey(d => d.PayId)
-                .HasConstraintName("FK_MemberPackages_Payments1");
+                .HasConstraintName("FK_MemberPackages_Payments");
         });
 
         modelBuilder.Entity<Package>(entity =>

@@ -18,7 +18,9 @@ public class MemberPackageDao : IMemberPackageService
             var mempack = _context.MemberPackages
                 .Include(p => p.Member)
                 .Include(p => p.Pay)
-                .Include(p => p.Package)
+				.Include(p => p.Class)
+				.Include(p => p.Trainer)
+				.Include(p => p.Package)
                 .FirstOrDefault(p => p.MemPackId == id);
             if (mempack != null) return mempack;
             return new MemberPackage();
@@ -62,6 +64,23 @@ public class MemberPackageDao : IMemberPackageService
 			return [];
 		}
 	}
+    public List<Package> GetPack()
+    {
+        try
+        {
+            var res = _context.Packages.ToList();
+            if (res != null)
+            {
+                return res;
+            }
+            return [];
+        }
+        catch (Exception)
+        {
+
+            return [];
+        }
+    }
     //lấy tổng số trang của cái bản projectType 
     public (int, int) GetPaginationInfo(int pageSize, int currentPage, string searchText = null)
     {
@@ -103,7 +122,8 @@ public class MemberPackageDao : IMemberPackageService
                           .Include(p => p.Pay)
                           .Include(p => p.Package)
 						  .Include(p => p.Trainer)
-						  .ToList();
+                          .Include(p => p.Class)
+                          .ToList();
 
         return result;
     }

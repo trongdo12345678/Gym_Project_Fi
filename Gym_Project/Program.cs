@@ -2,6 +2,8 @@ using Gym_Project.IService;
 using Gym_Project.Models;
 using Gym_Project.Models.Dao;
 using Microsoft.EntityFrameworkCore;
+using ProGCoder_MomoAPI.Models.Momo;
+using ProGCoder_MomoAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +25,11 @@ builder.Services.AddScoped<IPackageService, PackageDao>();
 builder.Services.AddScoped<IAttendanceService, AttendanceDao>();
 builder.Services.AddScoped<IMemberPackageService, MemberPackageDao>();
 builder.Services.AddScoped<IMemberService, MemberDao>();
+builder.Services.AddScoped<IPaymentService, PaymentDao>();
+builder.Services.AddScoped<IClassPackService, ClassPackDao>();
+
+builder.Services.Configure<MomoOptionModel>(builder.Configuration.GetSection("MomoAPI"));
+builder.Services.AddScoped<IMomoService, MomoService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

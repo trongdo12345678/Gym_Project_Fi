@@ -1,8 +1,7 @@
-﻿@model Gym_Project.Models.MemberPackage
+﻿@model Gym_Project.Models.Payment
 @{
     Layout = "_LayoutAdmin";
 }
-<!-- Left navbar links -->
 @section naviheader {
 
     <!-- Left navbar links -->
@@ -14,7 +13,7 @@
             <a href="#" class="nav-link">Home</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="#" class="nav-link">Member Package</a>
+            <a href="#" class="nav-link">Payment</a>
         </li>
     </ul>
 }
@@ -22,12 +21,12 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Manage Member Package</h1>
+                <h1>Manage Payment</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a>Home</a></li>
-                    <li class="breadcrumb-item active">Member Package</li>
+                    <li class="breadcrumb-item"><a asp-action="Project">Home</a></li>
+                    <li class="breadcrumb-item active">Payment</li>
                 </ol>
             </div>
         </div>
@@ -43,51 +42,34 @@
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">
-                List User Registered and confirm
+                List Payment
             </h3>
+            <div class="card-tools">
+                <a asp-action="AddPay" class="btn btn-primary" style="margin-right:50px">Add new customers at the counter</a>
+            </div>
         </div>
         <div class="card-body">
-            <div class="row">
-                <div class="col-9">
-                    <form asp-controller="MemberPackage" asp-action="ShowListMemPack" method="get">
-                        <div class="input-group input-group-sm">
-                            <input type="text" name="searchtext" class="form-control" />
-                            <div class="input-group-append">
-                                <button type="submit" class="btn btn-info btn-flat">Search</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
             <table class="table table-hover">
                 <thead>
                     <tr class="text-center">
-                        <th>Name Customer</th>
+                        <th>Package Name</th>
+                        <th>Member Name</th>
                         <th>Payment methods</th>
-                        <th>Trainer Manager</th>
-                        <th>Class Name</th>
-                        <th>Start Time</th>
-                        <th>End Time</th>
-                        <th>Status</th>
-                        <th>Funtion</th>
+                        <th>Amout</th>
+                        <th>DataTime</th>
                     </tr>
                 </thead>
 
                 <tbody id="projectList">
 
-                    @foreach (var item in ViewBag.PackMemAll)
+                    @foreach (var item in ViewBag.Pay)
                     {
                         <tr>
+                            <td class="text-center">@item.Package?.PackageName</td>
                             <td class="text-center">@item.Member?.Username</td>
-                            <td class="text-center">@item.Pay?.PaymentMethod</td>
-                            <td class="text-center">@item.Trainer?.TrainerName</td>
-                            <td class="text-center">@item.Class?.ClassName</td>
-                            <td class="text-center">@item.StartDate</td>
-                            <td class="text-center">@item.EndDate</td>
-                            <td class="text-center">@item.Status</td>
-                            <td class="text-center">
-                                <a asp-area="admin" asp-controller="MemberPackage" asp-action="ShowUpdateStatus" asp-route-id="@item.MemPackId" class="btn btm-sm btn-success">Update Status</a>
-                            </td>
+                            <td class="text-center">@item.PaymentMethod</td>
+                            <td class="text-center">@item.Amount</td>
+                            <td class="text-center">@item.PaymentDate</td>
                         </tr>
                     }
             </table>
@@ -97,34 +79,34 @@
                 <div class="col-md-7 mt-3">
                     <ul style="display:flex;">
                         <li style="list-style-type:none;padding:10px;border:1px solid black;margin:4px; border-radius:5px;">
-                            <a class="page-link " href="/Admin/MemberPackage/ShowListMemPack/1">Firstly</a>
+                            <a class="page-link " href="/Admin/PaymentAdmin/ShowListPay/1">Firstly</a>
                         </li>
 
                         @if (ViewBag.CurrentPage > 1)
                         {
                             <li style="list-style-type:none;padding:10px;border:1px solid black;margin:4px; border-radius:5px;">
-                                <a class="page-link " href="/Admin/MemberPackage/ShowListMemPack/@(ViewBag.CurrentPage - 1)">@((ViewBag.CurrentPage - 1))</a>
+                                <a class="page-link " href="/Admin/PaymentAdmin/ShowListPay/@(ViewBag.CurrentPage - 1)">@((ViewBag.CurrentPage - 1))</a>
                             </li>
                         }
 
                         <li style="list-style-type:none;padding:10px;border:1px solid black;margin:4px; border-radius:5px;" class="activeeee">
-                            <a class="page-link " href="/Admin/MemberPackage/ShowListMemPack/@(ViewBag.CurrentPage)">@ViewBag.CurrentPage</a>
+                            <a class="page-link " href="/Admin/PaymentAdmin/ShowListPay/@(ViewBag.CurrentPage)">@ViewBag.CurrentPage</a>
                         </li>
 
                         @if (ViewBag.CurrentPage < ViewBag.TotalPage)
                         {
                             <li style="list-style-type:none;padding:10px;border:1px solid black;margin:4px; border-radius:5px;">
-                                <a class="page-link " href="/Admin/MemberPackage/ShowListMemPack/@(ViewBag.CurrentPage + 1)">@((ViewBag.CurrentPage + 1))</a>
+                                <a class="page-link " href="/Admin/PaymentAdmin/ShowListPay/@(ViewBag.CurrentPage + 1)">@((ViewBag.CurrentPage + 1))</a>
                             </li>
                         }
                         @if (ViewBag.CurrentPage < ViewBag.TotalPage - 1)
                         {
                             <li style="list-style-type:none;padding:10px;border:1px solid black;margin:4px; border-radius:5px;">
-                                <a class="page-link " href="/Admin/MemberPackage/ShowListMemPack/@(ViewBag.CurrentPage + 2)">@((ViewBag.CurrentPage + 2))</a>
+                                <a class="page-link " href="/Admin/PaymentAdmin/ShowListPay/@(ViewBag.CurrentPage + 2)">@((ViewBag.CurrentPage + 2))</a>
                             </li>
                         }
                         <li style="list-style-type:none;padding:10px;border:1px solid black;margin:4px; border-radius:5px;">
-                            <a class="page-link " href="/Admin/MemberPackage/ShowListMemPack/@ViewBag.TotalPage">Final</a>
+                            <a class="page-link " href="/Admin/PaymentAdmin/ShowListPay/@ViewBag.TotalPage">Final</a>
                         </li>
                     </ul>
                 </div>

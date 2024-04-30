@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Gym_Project.Models;
 
@@ -23,13 +24,13 @@ public partial class MemberPackage
 
     public DateOnly? EndDate { get; set; }
 
-    public virtual ICollection<ClassPack> ClassPacks { get; set; } = new List<ClassPack>();
+    public virtual ClassPack? Class { get; set; }
 
     public virtual Member? Member { get; set; }
 
     public virtual Package? Package { get; set; }
 
-	public virtual Trainer? Trainer { get; set; }
+    public virtual Trainer? Trainer { get; set; }
 
     public virtual Payment? Pay { get; set; }
 }

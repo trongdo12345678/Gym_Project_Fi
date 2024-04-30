@@ -12,4 +12,5 @@ public interface IMemberPackageService
     public List<MemberPackage> GetlistPbyPages(int page, int pageSize, string searchText = null);
     public (int, int) GetPaginationInfo(int pageSize, int currentPage, string searchText = null);
     public bool UpdateStatus(MemberPackage package);
+    public List<Package> GetPack();
 }

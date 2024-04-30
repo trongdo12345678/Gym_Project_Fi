@@ -1,25 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Gym_Project.Models;
 
 public partial class ClassPack
 {
     public int ClassId { get; set; }
-
+    [Required]
     public string? ClassName { get; set; }
 
     public DateOnly? DateClass { get; set; }
-
-    public int? MemberId { get; set; }
-
-    public int? MemPackId { get; set; }
-
-    public int? TrainerId { get; set; }
-
+    [Required]
     public string? AssignmentTime { get; set; }
 
-    public int? PackageId { get; set; }
-
-    public virtual MemberPackage? MemPack { get; set; }
+    public virtual ICollection<MemberPackage> MemberPackages { get; set; } = new List<MemberPackage>();
 }
