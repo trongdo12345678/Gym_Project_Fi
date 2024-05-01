@@ -64,7 +64,10 @@ public class PackageDao : IPackageService
 
             if (!string.IsNullOrEmpty(searchText))
             {
-                query = query.Where(pt => pt.PackageName.Contains(searchText));
+                query = query.Where(pt => pt.PackageName.Contains(searchText) ||
+                                          pt.Trainer.TrainerName.ToString().Contains(searchText) ||
+                                          pt.Discount.ToString().Contains(searchText) ||
+                                          pt.Cost.ToString().Contains(searchText));
             }
 
             int totalItems = query.Count();
@@ -87,7 +90,10 @@ public class PackageDao : IPackageService
 
         if (!string.IsNullOrEmpty(searchText))
         {
-            query = query.Where(pt => pt.PackageName.Contains(searchText));
+            query = query.Where(pt => pt.PackageName.Contains(searchText) ||
+                                      pt.Trainer.TrainerName.ToString().Contains(searchText) ||
+                                      pt.Discount.ToString().Contains(searchText) ||
+                                      pt.Cost.ToString().Contains(searchText));
         }
 
         var result = query.Skip((page - 1) * pageSize)

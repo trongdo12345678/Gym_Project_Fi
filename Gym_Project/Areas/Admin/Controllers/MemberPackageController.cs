@@ -27,8 +27,8 @@ public class MemberPackageController : Controller
 	[Route("/Admin/MemberPackage/ShowListMemPack")]
 	public IActionResult ShowListMemPack(string searchtext, int page = 1)
 	{
-		var (totalPage, currentPage) = _memberpackageService.GetPaginationInfo(10, page, searchtext);
-		ViewBag.PackMemAll = _memberpackageService.GetlistPbyPages(page, 10, searchtext);
+		var (totalPage, currentPage) = _memberpackageService.GetPaginationInfo(15, page, searchtext);
+		ViewBag.PackMemAll = _memberpackageService.GetlistPbyPages(page, 15, searchtext);
 		ViewBag.TotalPage = totalPage;
 		ViewBag.CurrentPage = currentPage;
 		return View();

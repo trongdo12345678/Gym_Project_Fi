@@ -27,6 +27,7 @@ builder.Services.AddScoped<IMemberPackageService, MemberPackageDao>();
 builder.Services.AddScoped<IMemberService, MemberDao>();
 builder.Services.AddScoped<IPaymentService, PaymentDao>();
 builder.Services.AddScoped<IClassPackService, ClassPackDao>();
+builder.Services.AddScoped<IFeedBackService, FeedBackDao>();
 
 builder.Services.Configure<MomoOptionModel>(builder.Configuration.GetSection("MomoAPI"));
 builder.Services.AddScoped<IMomoService, MomoService>();

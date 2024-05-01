@@ -90,8 +90,15 @@ public class MemberPackageDao : IMemberPackageService
 
             if (!string.IsNullOrEmpty(searchText))
             {
-                query = query.Where(pt => pt.Status.Contains(searchText));
-            }
+                query = query.Where(pt => pt.Status.Contains(searchText) ||
+                                    pt.Trainer.TrainerName.ToString().Contains(searchText) ||
+                                    pt.Package.PackageName.ToString().Contains(searchText) ||
+                                    pt.Class.ClassName.ToString().Contains(searchText) ||
+                                    pt.Member.Username.ToString().Contains(searchText) ||
+                                    pt.Pay.PaymentMethod.ToString().Contains(searchText)
+                                    
+                                    );
+        }
 
             int totalItems = query.Count();
 
@@ -113,7 +120,14 @@ public class MemberPackageDao : IMemberPackageService
 
         if (!string.IsNullOrEmpty(searchText))
         {
-            query = query.Where(pt => pt.Status.Contains(searchText));
+            query = query.Where(pt => pt.Status.Contains(searchText) || 
+                                      pt.Trainer.TrainerName.ToString().Contains(searchText) ||
+                                      pt.Package.PackageName.ToString().Contains(searchText) ||
+                                      pt.Class.ClassName.ToString().Contains(searchText) ||
+                                      pt.Member.Username.ToString().Contains(searchText) ||
+                                      pt.Pay.PaymentMethod.ToString().Contains(searchText)
+
+                                      );
         }
 
         var result = query.Skip((page - 1) * pageSize)

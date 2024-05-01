@@ -34,7 +34,11 @@ public class TrainerDao : ITrainerService
 
             if (!string.IsNullOrEmpty(searchText))
             {
-                query = query.Where(pt => pt.TrainerName.Contains(searchText));
+                query = query.Where(pt => pt.TrainerName.Contains(searchText) ||
+                                          pt.Username.Contains(searchText) ||
+                                          pt.Email.Contains(searchText) ||
+                                          pt.Phone.Contains(searchText) ||
+                                          pt.Specialization.Contains(searchText));
             }
 
             int totalItems = query.Count();
@@ -57,7 +61,14 @@ public class TrainerDao : ITrainerService
 
         if (!string.IsNullOrEmpty(searchText))
         {
-            query = query.Where(pt => pt.TrainerName.Contains(searchText));
+            query = query.Where(pt => pt.TrainerName.Contains(searchText) || 
+                                      pt.Username.Contains(searchText) || 
+                                      pt.Email.Contains(searchText) ||
+                                      pt.Phone.Contains(searchText) ||
+                                      pt.Specialization.Contains(searchText)
+
+
+                                 );
         }
 
         var result = query.Skip((page - 1) * pageSize)
