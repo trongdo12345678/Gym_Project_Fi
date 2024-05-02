@@ -1,0 +1,98 @@
+﻿@model Gym_Project.Models.Feedback
+@{
+	Layout = "_Layout";
+}
+<div class="main">
+	<div class="about_banner_img"><img src="~/Content/images/price.jpg" class="img-responsive" alt=""></div>
+	<div class="about_banner_wrap">
+		<h1 class="m_11">FeedBack</h1>
+	</div>
+</div>
+<form asp-controller="UserLayout" asp-action="AddFeed" method="post">
+	<div class="row">
+		<div class="col-md-3"></div>
+		<div class="col-md-6">
+			<div class="mail_section_1">
+				<input type="text" class="mail_text_1" placeholder="/5" asp-for="Rating">
+				<div class="form-group">
+					<label for="TrainerId">Trainer Name</label>
+					<select asp-for="TrainerId" class="form-control">
+						<option value="">--Select Choose a coach--</option>
+						@foreach (var item in ViewBag.Trai)
+						{
+							<option value="@item.TrainerId">@item.TrainerName</option>
+						}
+					</select>
+					<span class="text-danger">@Html.ValidationMessageFor(x => x.TrainerId)</span>
+				</div>
+				<textarea class="massage-bt" placeholder="Massage" rows="5" id="comment" asp-for="FeedbackText"></textarea>
+
+				<button type="submit" class="send_bt btn btn-danger" style="margin-top:20px;padding:10px;">SEND</button>
+			</div>
+		</div>
+		<div class="col-md-3"></div>
+	</div>
+
+</form>
+<div class="row single-top">
+	@foreach (var fe in ViewBag.Feed)
+	{
+	<div class="col-md-2"></div>
+		<div class="col-md-8">
+			<div class="blog_box">
+				<div class="blog_grid">
+					<h3><a href="blog_single.html">@fe.Trainer?.TrainerName</a></h3><i class="document3"> </i>
+					<div class="singe_desc">
+						<p>@fe.FeedbackText</p>
+						<div class="comments">
+							<ul class="links">
+								<li><a href="#"><i class="blog_icon1"> </i><br><span>Rating: @fe.Rating /5</span></a></li>
+								<li><a href="#"><i class="blog_icon2"> </i><br><span>admin</span></a></li>
+							</ul>
+						</div>
+						<div class="clear"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	<div class="col-md-2"></div>
+	}
+</div>
+<div class="row">
+	<div class="col-md-5">
+	</div>
+	<div class="col-md-7 mt-3">
+		<ul style="display:flex;">
+			<li style="list-style-type:none;padding:10px;border:1px solid black;margin:4px;">
+				<a class="page-link " href="/UserLayout/ShowAddFeed/1">Firstly</a>
+			</li>
+
+			@if (ViewBag.CurrentPage > 1)
+			{
+				<li style="list-style-type:none;padding:10px;border:1px solid black;margin:4px;">
+					<a class="page-link " href="/UserLayout/ShowAddFeed/@(ViewBag.CurrentPage - 1)">@((ViewBag.CurrentPage - 1))</a>
+				</li>
+			}
+
+			<li style="list-style-type:none;padding:10px;border:1px solid black;margin:4px;" class="activeeee">
+				<a class="page-link " href="/UserLayout/ShowAddFeed/@(ViewBag.CurrentPage)">@ViewBag.CurrentPage</a>
+			</li>
+
+			@if (ViewBag.CurrentPage < ViewBag.TotalPage)
+			{
+				<li style="list-style-type:none;padding:10px;border:1px solid black;margin:4px;">
+					<a class="page-link " href="/UserLayout/ShowAddFeed/@(ViewBag.CurrentPage + 1)">@((ViewBag.CurrentPage + 1))</a>
+				</li>
+			}
+			@if (ViewBag.CurrentPage < ViewBag.TotalPage - 1)
+			{
+				<li style="list-style-type:none;padding:10px;border:1px solid black;margin:4px;">
+					<a class="page-link " href="/UserLayout/ShowAddFeed/@(ViewBag.CurrentPage + 2)">@((ViewBag.CurrentPage + 2))</a>
+				</li>
+			}
+			<li style="list-style-type:none;padding:10px;border:1px solid black;margin:4px;">
+				<a class="page-link " href="/UserLayout/ShowAddFeed/@ViewBag.TotalPage">Final</a>
+			</li>
+		</ul>
+	</div>
+</div>

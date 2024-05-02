@@ -1,6 +1,6 @@
 ﻿@model Gym_Project.Models.ClassPack
 @{
-    Layout = "_LayoutAdmin";
+    Layout = "_LayoutAdminTrainer";
 }
 @section naviheader {
 
@@ -42,16 +42,13 @@
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">
-                List Payment
+                List Class
             </h3>
-            <div class="card-tools">
-                <a asp-action="ShowAddClass" class="btn btn-primary" style="margin-right:50px">Add new </a>
-            </div>
         </div>
         <div class="card-body">
             <div class="row">
                 <div class="col-9">
-                    <form asp-controller="ClassPack" asp-action="ShowListClass" method="get">
+                    <form asp-controller="ClassTrainer" asp-action="ShowListClass" method="get">
                         <div class="input-group input-group-sm">
                             <input type="text" name="searchtext" class="form-control" />
                             <div class="input-group-append">
@@ -68,7 +65,6 @@
                         <th>Trainer Manager</th>
                         <th>Date Class</th>
                         <th>Assignment Time</th>
-                        <th>Fundtion</th>
                     </tr>
                 </thead>
 
@@ -81,10 +77,6 @@
                             <td class="text-center">@item.Trainer?.TrainerName</td>
                             <td class="text-center">@item.DateClass</td>
                             <td class="text-center">@item.AssignmentTime</td>
-                            <td class="text-center">
-                                <a asp-area="admin" asp-controller="ClassPack" asp-action="ShowUpdateClass" asp-route-id="@item.ClassId" class="btn btm-sm btn-success">Edit</a>
-                                <a asp-area="admin" asp-controller="ClassPack" asp-action="DropClass" asp-route-id="@item.ClassId" onclick="confirmDelete(@item.ClassId)" class="btn btm-sm btn-danger btnDelete">Delete</a>
-                            </td>
 
                         </tr>
                     }
@@ -95,34 +87,34 @@
                 <div class="col-md-7 mt-3">
                     <ul style="display:flex;">
                         <li style="list-style-type:none;padding:10px;border:1px solid black;margin:4px; border-radius:5px;">
-                            <a class="page-link " href="/Admin/ClassPack/ShowListClass/1">Firstly</a>
+                            <a class="page-link " href="/AdminTrainer/ClassTrainer/ShowListClass/1">Firstly</a>
                         </li>
 
                         @if (ViewBag.CurrentPage > 1)
                         {
                             <li style="list-style-type:none;padding:10px;border:1px solid black;margin:4px; border-radius:5px;">
-                                <a class="page-link " href="/Admin/ClassPack/ShowListClass/@(ViewBag.CurrentPage - 1)">@((ViewBag.CurrentPage - 1))</a>
+                                <a class="page-link " href="/AdminTrainer/ClassTrainer/ShowListClass/@(ViewBag.CurrentPage - 1)">@((ViewBag.CurrentPage - 1))</a>
                             </li>
                         }
 
                         <li style="list-style-type:none;padding:10px;border:1px solid black;margin:4px; border-radius:5px;" class="activeeee">
-                            <a class="page-link " href="/Admin/ClassPack/ShowListClass/@(ViewBag.CurrentPage)">@ViewBag.CurrentPage</a>
+                            <a class="page-link " href="/AdminTrainer/ClassTrainer/ShowListClass/@(ViewBag.CurrentPage)">@ViewBag.CurrentPage</a>
                         </li>
 
                         @if (ViewBag.CurrentPage < ViewBag.TotalPage)
                         {
                             <li style="list-style-type:none;padding:10px;border:1px solid black;margin:4px; border-radius:5px;">
-                                <a class="page-link " href="/Admin/ClassPack/ShowListClass/@(ViewBag.CurrentPage + 1)">@((ViewBag.CurrentPage + 1))</a>
+                                <a class="page-link " href="/AdminTrainer/ClassTrainer/ShowListClass/@(ViewBag.CurrentPage + 1)">@((ViewBag.CurrentPage + 1))</a>
                             </li>
                         }
                         @if (ViewBag.CurrentPage < ViewBag.TotalPage - 1)
                         {
                             <li style="list-style-type:none;padding:10px;border:1px solid black;margin:4px; border-radius:5px;">
-                                <a class="page-link " href="/Admin/ClassPack/ShowListClass/@(ViewBag.CurrentPage + 2)">@((ViewBag.CurrentPage + 2))</a>
+                                <a class="page-link " href="/AdminTrainer/ClassTrainer/ShowListClass/@(ViewBag.CurrentPage + 2)">@((ViewBag.CurrentPage + 2))</a>
                             </li>
                         }
                         <li style="list-style-type:none;padding:10px;border:1px solid black;margin:4px; border-radius:5px;">
-                            <a class="page-link " href="/Admin/ClassPack/ShowListClass/@ViewBag.TotalPage">Final</a>
+                            <a class="page-link " href="/AdminTrainer/ClassTrainer/ShowListClass/@ViewBag.TotalPage">Final</a>
                         </li>
                     </ul>
                 </div>
@@ -131,26 +123,3 @@
     </div>
 
 </section>
-@section scripts {
-
-    <script>
-        function confirmDelete(id) {
-            if (confirm("Are you sure you want to delete?")) {
-                $.ajax({
-                    url: '@Url.Action("DropClass", "ClassPack")',
-                    type: 'POST',
-                    data: { id: id },
-                    success: function (response) {
-                        if (response.success) {
-                            alert(response.message);
-                        }
-                    },
-                    error: function (xhr, status, error) {
-                        alert("An error occurred while deleting data.");
-                    }
-                });
-            }
-        }
-
-    </script>
-}

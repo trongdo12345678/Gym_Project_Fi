@@ -97,9 +97,4 @@ public class AttendanceController : Controller
         }
         return Json(new { success });
     }
-
-    public IActionResult Success()
-	{
-		return View();
-	}
 }

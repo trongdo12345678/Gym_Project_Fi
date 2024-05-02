@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="~/css/style.css" rel="stylesheet" />
+</head>
+<body>
+    @* Login Trainer *@
+    <div style="width:auto;align-center;margin-left:45%;margin-top:400px;">
+        <h2>Login Trainer</h2>
+        <button onclick="document.getElementById('id02').style.display='block'">Login</button> <br>
+        @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+        {
+            <span style="color:red;margin-right:20px">@ViewBag.ErrorMessage</span>
+        }
+        <br> <br> <br>
+        <a style="text-decoration:none;padding:15px;background-color:forestgreen;color:aliceblue;width:60px;margin-top:20px;" asp-area="Admin" asp-controller="Admin" asp-action="LoginAdmin">Login Admin =>></a>
+    </div>
+    @* Login Trainer *@
+    <div id="id02" class="modal">
+        <form class="modal-content animate" asp-area="AdminTrainer" asp-controller="AdminTrainer" asp-action="LoginTrainer" method="post">
+            <div class="imgcontainer">
+                <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
+                <img src="~/img/gym.jpg" alt="Avatar" class="avatar">
+            </div>
+
+            <div class="container">
+                <label for="Username"><b>Username</b></label>
+                <input type="text" placeholder="Enter Username" name="Username" required>
+                <label for="psw"><b>Password</b></label>
+                <input type="password" placeholder="Enter Password" name="Password" required>
+                <button type="submit">Login</button>
+            </div>
+
+            <div class="container" style="background-color:#f1f1f1">
+                <button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn">Cancel</button>
+            </div>
+        </form>
+    </div>
+    @section scripts {
+        <script>
+            var modal = document.getElementById('id02');
+            window.onclick = function (event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+        </script>
+    }
+</body>
+</html>

@@ -10,4 +10,5 @@ public interface IClassPackService
     public List<ClassPack> GetlistPbyPages(int page, int pageSize, string searchText = null);
     public ClassPack GetClass(int id);
     public bool DropClass(int id);
+    public List<Trainer> GetTrai();
 }

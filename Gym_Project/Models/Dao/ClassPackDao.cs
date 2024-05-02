@@ -22,6 +22,23 @@ public class ClassPackDao : IClassPackService
             return false;
         }
     }
+    public List<Trainer> GetTrai()
+    {
+        try
+        {
+            var res = _context.Trainers.ToList();
+            if (res != null)
+            {
+                return res;
+            }
+            return [];
+        }
+        catch (Exception)
+        {
+
+            return [];
+        }
+    }
     //lấy tổng số trang của cái bản projectType 
     public (int, int) GetPaginationInfo(int pageSize, int currentPage, string searchText = null)
     {
@@ -58,6 +75,7 @@ public class ClassPackDao : IClassPackService
         }
 
         var result = query.Skip((page - 1) * pageSize)
+                          .Include(pt => pt.Trainer)
                           .Take(pageSize)
                           .ToList();
 

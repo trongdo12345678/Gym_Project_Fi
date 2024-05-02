@@ -64,6 +64,7 @@ public partial class GymProjectContext : DbContext
             entity.Property(e => e.ClassName)
                 .HasMaxLength(250)
                 .IsUnicode(false);
+            entity.Property(e => e.TrainerId).HasColumnName("TrainerID");
         });
 
         modelBuilder.Entity<Feedback>(entity =>

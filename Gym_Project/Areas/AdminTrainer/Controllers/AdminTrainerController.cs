@@ -1,12 +1,12 @@
 ﻿using Gym_Project.IService;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Gym_Project.Areas.Admin.Controllers;
-[Area("Admin")]
-public class AdminController : Controller
+namespace Gym_Project.Areas.AdminTrainer.Controllers;
+[Area("AdminTrainer")]
+public class AdminTrainerController : Controller
 {
     private IAccountService _accountService;
-    public AdminController(IAccountService accountService)
+    public AdminTrainerController(IAccountService accountService)
     {
         _accountService = accountService;
     }
@@ -15,39 +15,38 @@ public class AdminController : Controller
         if (HttpContext.Session.GetString("LoggedInUser") != null)
         {
 
-            return RedirectToAction("ShowListTrai", "Trainer");
+            return RedirectToAction("ShowListAttendance", "AttendanceTrainer");
         }
         else
         {
 
-            return RedirectToAction("LoginAdmin");
+            return RedirectToAction("LoginAdminTrainer");
         }
     }
-   // [Route("~/")]
-    public IActionResult LoginAdmin()
+    //[Route("~/")]
+    public IActionResult LoginAdminTrainer()
     {
         string? errorMessage = TempData["ErrorMessage"] as string;
         ViewBag.ErrorMessage = errorMessage;
         return View();
     }
     [HttpPost]
-    public IActionResult Login(string username, string password)
+    public IActionResult LoginTrainer(string username, string password)
     {
-        bool isLoggedIn = _accountService.AdminLogin(username, password);
+        bool isLoggedIn = _accountService.LoginTrainer(username, password);
         if (isLoggedIn)
         {
             HttpContext.Session.SetString("LoggedInUser", username);
-            return RedirectToAction("ShowListTrai","Trainer");
+            return RedirectToAction("ShowListAttendance", "AttendanceTrainer");
         }
         else
         {
             TempData["ErrorMessage"] = "Account or password is incorrect.";
-            return RedirectToAction("LoginAdmin");
+            return RedirectToAction("LoginAdminTrainer");
         }
     }
-
     public IActionResult Logout()
     {
-        return RedirectToAction("LoginAdmin");
+        return RedirectToAction("LoginAdminTrainer");
     }
 }

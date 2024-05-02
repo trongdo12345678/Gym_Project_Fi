@@ -33,6 +33,7 @@ public class ClassPackController : Controller
         {
             ViewBag.Mess = mess;
         }
+        ViewBag.Trai = _classService.GetTrai();
         return View();
     }
     [HttpPost]
@@ -46,8 +47,10 @@ public class ClassPackController : Controller
             if (string.IsNullOrEmpty(clas.AssignmentTime))
                 ModelState.AddModelError("AssignmentTime", "Please enter a AssignmentTime.");
 
+			if (clas.TrainerId == null)
+				ModelState.AddModelError("trainer", "Please enter a trainer.");
 
-            TempData["Mess"] = "Please do not leave blank boxes";
+			TempData["Mess"] = "Please do not leave blank boxes";
             return RedirectToAction("ShowAddClass");
         }
         else
@@ -84,6 +87,7 @@ public class ClassPackController : Controller
         {
             ViewBag.Mess = mess;
         }
+        ViewBag.Trai = _classService.GetTrai();
         var clas = _classService.GetClass(id);
         return View("ShowUpdateClass", clas);
     }

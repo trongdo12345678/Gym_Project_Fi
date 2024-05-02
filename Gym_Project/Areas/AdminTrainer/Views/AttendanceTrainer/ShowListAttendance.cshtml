@@ -1,5 +1,157 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model Gym_Project.Models.Attendance
 @{
+    Layout = "_LayoutAdminTrainer";
 }
+
+@section naviheader {
+
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="#" class="nav-link">Home</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="#" class="nav-link">Attendance</a>
+        </li>
+    </ul>
+}
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Manage Attendance</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a>Home</a></li>
+                    <li class="breadcrumb-item active">Attendance</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+<style>
+    .activeeee {
+        background-color: #0d6efd !important;
+    }
+</style>
+<!-- Main content -->
+<section class="content">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">
+                Number of sessions attended by the coach in 30 days
+            </h3>
+        </div>
+        <div class="card-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr class="text-center">
+                        <th>Trainer Name</th>
+                        <th>Number Of Sessions</th>
+                    </tr>
+                </thead>
+
+                <tbody id="projectList">
+                    @{
+                        Dictionary<string, int> trainerSessions = new Dictionary<string, int>();
+                    }
+
+                    @foreach (var item in ViewBag.Att)
+                    {
+                        if (item.Trainer != null)
+                        {
+                            if (!trainerSessions.ContainsKey(item.Trainer.TrainerName))
+                            {
+                                trainerSessions[item.Trainer.TrainerName] = item.NumberOfSessions;
+                            }
+                            else
+                            {
+                                trainerSessions[item.Trainer.TrainerName] += item.NumberOfSessions;
+                            }
+                        }
+                    }
+
+                    @foreach (var trainerSession in trainerSessions)
+                    {
+                        <tr>
+                            <td class="text-center">@trainerSession.Key</td>
+                            <td class="text-center">@trainerSession.Value</td>
+                        </tr>
+                    }
+
+
+            </table>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">
+                List Attendance Deltails
+            </h3>
+        </div>
+        <div class="card-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr class="text-center">
+                        <th>Trainer Name</th>
+                        <th>Date</th>
+                        <th>Number Of Sessions</th>
+                    </tr>
+                </thead>
+
+                <tbody id="projectList">
+
+                    @foreach (var item in ViewBag.Att)
+                    {
+                        <tr>
+                            <td class="text-center">@item.Trainer?.TrainerName</td>
+                            <td class="text-center">@item.Date</td>
+                            <td class="text-center">@item.NumberOfSessions</td>                         
+                        </tr>
+                    }
+            </table>
+            <div class="row">
+                <div class="col-md-5">
+                </div>
+                <div class="col-md-7 mt-3">
+                    <ul style="display:flex;">
+                        <li style="list-style-type:none;padding:10px;border:1px solid black;margin:4px; border-radius:5px;">
+                            <a class="page-link " href="/AdminTrainer/AttendanceTrainer/ShowListAttendance/1">Firstly</a>
+                        </li>
+
+                        @if (ViewBag.CurrentPage > 1)
+                        {
+                            <li style="list-style-type:none;padding:10px;border:1px solid black;margin:4px; border-radius:5px;">
+                                <a class="page-link " href="/AdminTrainer/AttendanceTrainer/ShowListAttendance/@(ViewBag.CurrentPage - 1)">@((ViewBag.CurrentPage - 1))</a>
+                            </li>
+                        }
+
+                        <li style="list-style-type:none;padding:10px;border:1px solid black;margin:4px; border-radius:5px;" class="activeeee">
+                            <a class="page-link " href="/AdminTrainer/AttendanceTrainer/ShowListAttendance/@(ViewBag.CurrentPage)">@ViewBag.CurrentPage</a>
+                        </li>
+
+                        @if (ViewBag.CurrentPage < ViewBag.TotalPage)
+                        {
+                            <li style="list-style-type:none;padding:10px;border:1px solid black;margin:4px; border-radius:5px;">
+                                <a class="page-link " href="/AdminTrainer/AttendanceTrainer/ShowListAttendance/@(ViewBag.CurrentPage + 1)">@((ViewBag.CurrentPage + 1))</a>
+                            </li>
+                        }
+                        @if (ViewBag.CurrentPage < ViewBag.TotalPage - 1)
+                        {
+                            <li style="list-style-type:none;padding:10px;border:1px solid black;margin:4px; border-radius:5px;">
+                                <a class="page-link " href="/AdminTrainer/AttendanceTrainer/ShowListAttendance/@(ViewBag.CurrentPage + 2)">@((ViewBag.CurrentPage + 2))</a>
+                            </li>
+                        }
+                        <li style="list-style-type:none;padding:10px;border:1px solid black;margin:4px; border-radius:5px;">
+                            <a class="page-link " href="/AdminTrainer/AttendanceTrainer/ShowListAttendance/@ViewBag.TotalPage">Final</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -7,10 +7,12 @@ public class UserLayoutController : Controller
 {
 	private IPackageService _packageService;
 	private IMemberService _memberService;
-	public UserLayoutController(IPackageService packageService, IMemberService memberService)
+	private IFeedBackService _freeService;
+	public UserLayoutController(IPackageService packageService, IMemberService memberService, IFeedBackService freeService)
 	{
 		_packageService = packageService;
 		_memberService = memberService;
+		_freeService = freeService;
 	}
 	[Route("/UserLayout/Index/{page}")]
 	[Route("/UserLayout/Index")]
@@ -55,7 +57,37 @@ public class UserLayoutController : Controller
 	{
 		return View();
 	}
-	public IActionResult FeedBack()
+	[Route("/UserLayout/ShowAddFeed/{page}")]
+	[Route("/UserLayout/ShowAddFeed")]
+	public IActionResult ShowAddFeed( int page = 1)
+	{
+		var (totalPage, currentPage) = _freeService.GetPaginationInfo(5, page);
+		ViewBag.Feed = _freeService.GetlistPbyPages(page, 5);
+		ViewBag.TotalPage = totalPage;
+		ViewBag.CurrentPage = currentPage;
+		ViewBag.Trai = _freeService.GetTrai();
+		if (HttpContext.Session.GetString("LoggedInUser") == null)
+		{
+			ViewBag.checklogin = "";
+		}
+		else
+		{
+			string? usernamelogined = HttpContext.Session.GetString("LoggedInUser");
+			ViewBag.checklogin = usernamelogined;
+			if (usernamelogined != null)
+			{
+				ViewBag.memlogined = _memberService.getmemberbyusername(usernamelogined);
+			}
+		}
+		return View();
+	}
+	public IActionResult AddFeed(Feedback feedback )
+	{
+		feedback.DateFeed = DateOnly.FromDateTime(DateTime.Now);
+		_freeService.AddFeed(feedback);
+		return RedirectToAction("Success");
+	}
+	public IActionResult Success()
 	{
 		return View();
 	}

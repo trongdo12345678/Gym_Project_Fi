@@ -12,7 +12,7 @@ public class MemberPackageController : Controller
     {
         _memberpackageService = memberpackageService;
     }
-    [Route("~/")]
+    //[Route("~/")]
     [Route("/Admin/MemberPackage/ShowlistUserSend/{page}")]
     [Route("/Admin/MemberPackage/ShowlistUserSend")]
     public IActionResult ShowlistUserSend(string searchtext, int page = 1)

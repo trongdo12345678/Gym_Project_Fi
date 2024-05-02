@@ -18,13 +18,33 @@ public class TrainerDao : ITrainerService
     {
         try
         {
+            trai.Password = HashPassword(trai.Password);
+
             _context.Trainers.Add(trai);
             return _context.SaveChanges() > 0;
-        }catch (Exception)
+        }
+        catch (Exception)
         {
             return false;
         }
     }
+
+    // Hash password function
+    private string HashPassword(string password)
+    {
+        using (SHA256 sha256Hash = SHA256.Create())
+        {
+            byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(password));
+
+            StringBuilder builder = new StringBuilder();
+            for (int i = 0; i < bytes.Length; i++)
+            {
+                builder.Append(bytes[i].ToString("x2"));
+            }
+            return builder.ToString();
+        }
+    }
+
     //lấy tổng số trang của cái bản projectType 
     public (int, int) GetPaginationInfo(int pageSize, int currentPage , string searchText = null)
     {

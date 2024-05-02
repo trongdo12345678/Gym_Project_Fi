@@ -10,8 +10,28 @@ public class FeedBackAdminController : Controller
     {
         _freeService = freeService;
     }
-    public IActionResult ShowFeedBack()
+    [Route("/Admin/FeedBackAdmin/ShowFeedBack/{page}")]
+    [Route("/Admin/FeedBackAdmin/ShowFeedBack")]
+    public IActionResult ShowFeedBack( int page = 1)
     {
+        var (totalPage, currentPage) = _freeService.GetPaginationInfo(50, page);
+        ViewBag.Feed = _freeService.GetlistPbyPages(page, 50);
+        ViewBag.TotalPage = totalPage;
+        ViewBag.CurrentPage = currentPage;
         return View();
     }
+    public IActionResult DropFeed(int id)
+    {
+        try
+        {
+            _freeService.DropFeed(id);
+            return RedirectToAction("ShowFeedBack");
+        }
+        catch (Exception)
+        {
+            return Json(new { success = false, message = "An error occurred while deleting data." });
+        }
+    }
+
+
 }

@@ -34,7 +34,6 @@ public class AccountDao : IAccountService
         if (trainer != null && VerifyPassword(password, trainer.Password) && trainer.RoleId == 2)
         {
             _httpContextAccessor.HttpContext.Session.SetString("LoggedInUser", username);
-            _httpContextAccessor.HttpContext.Session.SetString("UserRole", "Trainer");
             return true;
         }
         return false;
