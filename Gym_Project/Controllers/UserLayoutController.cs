@@ -8,12 +8,15 @@ public class UserLayoutController : Controller
 	private IPackageService _packageService;
 	private IMemberService _memberService;
 	private IFeedBackService _freeService;
-	public UserLayoutController(IPackageService packageService, IMemberService memberService, IFeedBackService freeService)
+    private IClassPackService _classService;
+    public UserLayoutController(IPackageService packageService, IMemberService memberService, IFeedBackService freeService , IClassPackService classService)
 	{
 		_packageService = packageService;
 		_memberService = memberService;
 		_freeService = freeService;
-	}
+        _classService = classService;
+
+    }
 	[Route("/UserLayout/Index/{page}")]
 	[Route("/UserLayout/Index")]
 	public IActionResult Index(string searchtext, int page = 1)
@@ -49,10 +52,16 @@ public class UserLayoutController : Controller
 	{
 		return View();
 	}
-	public IActionResult Classes()
-	{
-		return View();
-	}
+    [Route("/UserLayout/Classes/{page}")]
+    [Route("/UserLayout/Classes")]
+    public IActionResult Classes(string searchtext, int page = 1)
+    {
+        var (totalPage, currentPage) = _classService.GetPaginationInfo(6, page, searchtext);
+        ViewBag.Class = _classService.GetlistPbyPages(page, 6, searchtext);
+        ViewBag.TotalPage = totalPage;
+        ViewBag.CurrentPage = currentPage;
+        return View();
+    }
 	public IActionResult Blog()
 	{
 		return View();
