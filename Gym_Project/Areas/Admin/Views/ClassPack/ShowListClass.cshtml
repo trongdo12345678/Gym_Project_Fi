@@ -65,6 +65,7 @@
                 <thead>
                     <tr class="text-center">
                         <th>Class Name</th>
+                        <th>Images</th>
                         <th>Trainer Manager</th>
                         <th>Date Class</th>
                         <th>Assignment Time</th>
@@ -78,6 +79,12 @@
                     {
                         <tr>
                             <td class="text-center">@item.ClassName</td>
+                            @if (@item.Img != null)
+                            {
+                                <td class="text-center">
+                                    <img src="@item.Img" width="60" />
+                                </td>
+                            }
                             <td class="text-center">@item.Trainer?.TrainerName</td>
                             <td class="text-center">@item.DateClass</td>
                             <td class="text-center">@item.AssignmentTime</td>

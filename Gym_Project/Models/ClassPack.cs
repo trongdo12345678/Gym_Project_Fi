@@ -7,6 +7,8 @@ public partial class ClassPack
 {
     public int ClassId { get; set; }
 
+    public string? Img { get; set; }
+
     public string? ClassName { get; set; }
 
     public int? TrainerId { get; set; }

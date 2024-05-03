@@ -122,6 +122,7 @@ public class ClassPackDao : IClassPackService
             {
                 e.ClassName = clas.ClassName;
                 e.DateClass = clas.DateClass;
+                e.Img = clas.Img;
                 e.AssignmentTime = clas.AssignmentTime;
                 return _context.SaveChanges() > 0;
 

@@ -64,8 +64,8 @@
                         <tr>
                             <td class="text-center">@item.Member?.Username</td>
                             <td class="text-center">@item.Member?.Phone</td>
-                                <td class="text-center">@item.Status</td>
                             <td class="text-center">@item.Pay?.PaymentMethod</td>
+                            <td class="text-center">@item.Status</td>
                             <td class="text-center">@item.Package?.PackageName</td>
                             <td class="text-center">
                                 <a asp-area="admin" asp-controller="MemberPackage" asp-action="ShowConfirm" asp-route-id="@item.MemPackId" class="btn btm-sm btn-success">Confirm</a>
