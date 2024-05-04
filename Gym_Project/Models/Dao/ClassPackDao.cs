@@ -22,7 +22,24 @@ public class ClassPackDao : IClassPackService
             return false;
         }
     }
-    public List<Trainer> GetTrai()
+	public List<ClassPack> GetClasss()
+	{
+		try
+		{
+			var res = _context.ClassPacks.ToList();
+			if (res != null)
+			{
+				return res;
+			}
+			return [];
+		}
+		catch (Exception)
+		{
+
+			return [];
+		}
+	}
+	public List<Trainer> GetTrai()
     {
         try
         {

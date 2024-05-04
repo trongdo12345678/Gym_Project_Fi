@@ -25,6 +25,7 @@ public class UserLayoutController : Controller
 		ViewBag.Pack = _packageService.GetlistPbyPages(page, 6, searchtext);
 		ViewBag.TotalPage = totalPage;
 		ViewBag.CurrentPage = currentPage;
+		ViewBag.Class = _classService.GetClasss();
 		if (HttpContext.Session.GetString("LoggedInUser") == null)
 		{
 			ViewBag.checklogin = "";

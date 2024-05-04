@@ -1974,11 +1974,11 @@ span.tab-img{
 	width:45.5%;
 	float:left;
 }
-.class_right{
-	width:54.5%;
+.class_right {
+	width: 54.5%;
 	float: left;
 	background: #72D0F4;
-	padding: 4%;
+	padding: 4.7%;
 }
 .class_right h3{
 	color:#fff;
@@ -3852,7 +3852,7 @@ span.m_26 {
 	}
 	.class_left {
 		margin-bottom: 10px;
-		width: 42.5%;
+		width: 45%;
 	}
 }
 @media (max-width:640px){

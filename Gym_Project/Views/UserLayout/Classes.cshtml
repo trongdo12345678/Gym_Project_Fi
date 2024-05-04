@@ -13,16 +13,16 @@
 			<div class="row class_box">
 					@foreach(var clas in ViewBag.Class)
 					{
-				<div class="col-md-6 ">
+				<div class="col-md-6">
 					<div class="class_left">
-							<a href="single_class.html"><img src="@clas.Img" class="img-responsive" width="250" height="270" alt="" title="continue"></a>
+							<a href="single_class.html"><img src="@clas.Img" class="img-responsive mt-1" alt="" title="continue"></a>
 					</div>
 						<div class="class_right">
 							<h3>@clas.ClassName</h3>
 							<div class="class_img">
 								<img src="@clas.Trainer?.Img" alt="">
 								<div class="class_desc">
-									<h4>@clas.Trainer?.TrainerName</h4>S
+									<h4>@clas.Trainer?.TrainerName</h4>
 									<h5>@clas.Trainer?.Specialization</h5>
 									<p>iusto odio dignissim</p>
 								</div>
@@ -38,9 +38,47 @@
 				</div>
 				}
 			</div>
+			<div class="row">
+				<div class="col-md-5">
+				</div>
+				<div class="col-md-7 mt-3">
+					<ul style="display:flex;">
+						<li style="list-style-type:none;padding:10px;border:1px solid black;margin:4px;">
+							<a class="page-link " href="/UserLayout/Classes/1">Firstly</a>
+						</li>
+
+						@if (ViewBag.CurrentPage > 1)
+						{
+							<li style="list-style-type:none;padding:10px;border:1px solid black;margin:4px;">
+								<a class="page-link " href="/UserLayout/Classes/@(ViewBag.CurrentPage - 1)">@((ViewBag.CurrentPage - 1))</a>
+							</li>
+						}
+
+						<li style="list-style-type:none;padding:10px;border:1px solid black;margin:4px;" class="activeeee">
+							<a class="page-link " href="/UserLayout/Classes/@(ViewBag.CurrentPage)">@ViewBag.CurrentPage</a>
+						</li>
+
+						@if (ViewBag.CurrentPage < ViewBag.TotalPage)
+						{
+							<li style="list-style-type:none;padding:10px;border:1px solid black;margin:4px;">
+								<a class="page-link " href="/UserLayout/Classes/@(ViewBag.CurrentPage + 1)">@((ViewBag.CurrentPage + 1))</a>
+							</li>
+						}
+						@if (ViewBag.CurrentPage < ViewBag.TotalPage - 1)
+						{
+							<li style="list-style-type:none;padding:10px;border:1px solid black;margin:4px;">
+								<a class="page-link " href="/UserLayout/Classes/@(ViewBag.CurrentPage + 2)">@((ViewBag.CurrentPage + 2))</a>
+							</li>
+						}
+						<li style="list-style-type:none;padding:10px;border:1px solid black;margin:4px;">
+							<a class="page-link " href="/UserLayout/Classes/@ViewBag.TotalPage">Final</a>
+						</li>
+					</ul>
+				</div>
+			</div>
 		</div>
 		<div class="row classes_bottom">
-			<div class="col-md-8">
+			<div class="col-md-12">
 				<h3 class="m_2">All Classes</h3>
 				<div class="classes">
 					<div class="cardio_list">
@@ -64,35 +102,27 @@
 
 					</div>
 					<div class="cardio_list1">
-						<div class="cardio_sublist">
-							<ul class="cardio">
-								<li><i class="clock"> </i><span>Aerobics</span></li>
-							</ul>
-							<div class="social-media">
-								<ul>
-									<li> <span class="simptip-position-bottom simptip-movable" data-tooltip="timetable"><a href="#" target="_blank"> </a></span></li>
-									<li><span class="simptip-position-bottom simptip-movable" data-tooltip="Send to"><a href="#" target="_blank"> </a> </span></li>
-									<li><span class="simptip-position-bottom simptip-movable" data-tooltip="like it"><a href="#" target="_blank"> </a></span></li>
-									<li><span class="simptip-position-bottom simptip-movable" data-tooltip="share"><a href="#" target="_blank"> </a></span></li>
+						@foreach (var clas in ViewBag.Class)
+						{
+							<div class="cardio_sublist">
+								<ul class="cardio">
+									<li><i class="clock"> </i><span>@clas.ClassName</span></li>
 								</ul>
+								<div class="social-media">
+									<ul>
+										<li> <span class="simptip-position-bottom simptip-movable" data-tooltip="timetable"><a href="#" target="_blank"> </a></span></li>
+										<li><span class="simptip-position-bottom simptip-movable" data-tooltip="Send to"><a href="#" target="_blank"> </a> </span></li>
+										<li><span class="simptip-position-bottom simptip-movable" data-tooltip="like it"><a href="#" target="_blank"> </a></span></li>
+										<li><span class="simptip-position-bottom simptip-movable" data-tooltip="share"><a href="#" target="_blank"> </a></span></li>
+									</ul>
+								</div>
+								<div class="clear"></div>
 							</div>
-							<div class="clear"></div>
-						</div>
+						}
 					</div>
 					<div class="clear"></div>
 				</div>
 			</div>
-			<div class="col-md-4">
-				<h3 class="m_4">Membership Prices</h3>
-				<div class="members">
-					<h4 class="m_3">25% Discount of for all members</h4>
-					<p>Discount on services and <br>treatments at the GymBase for<br> all membership cards holders.</p>
-					<div class="btn1">
-						<a href="#">More</a>
-					</div>
-				</div>
-			</div>
-			<div class="clear"></div>
 		</div>
 	</div>
 	<div class="traine_login">

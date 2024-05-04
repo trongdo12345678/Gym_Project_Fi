@@ -1,4 +1,5 @@
 ﻿using Gym_Project.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Gym_Project.IService;
 
@@ -11,4 +12,5 @@ public interface IClassPackService
     public ClassPack GetClass(int id);
     public bool DropClass(int id);
     public List<Trainer> GetTrai();
+	public List<ClassPack> GetClasss();
 }
