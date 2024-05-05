@@ -114,7 +114,24 @@ public class TrainerDao : ITrainerService
             return new Trainer();
         }
     }
-    public bool DropTrainer(int id)
+	public List<Trainer> GetTrainer()
+	{
+		try
+		{
+			var res = _context.Trainers.ToList();
+			if (res != null)
+			{
+				return res;
+			}
+			return [];
+		}
+		catch (Exception)
+		{
+
+			return [];
+		}
+	}
+	public bool DropTrainer(int id)
     {
         try
         {

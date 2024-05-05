@@ -9,12 +9,14 @@ public class UserLayoutController : Controller
 	private IMemberService _memberService;
 	private IFeedBackService _freeService;
     private IClassPackService _classService;
-    public UserLayoutController(IPackageService packageService, IMemberService memberService, IFeedBackService freeService , IClassPackService classService)
+	private ITrainerService _traiService;
+	public UserLayoutController(IPackageService packageService, IMemberService memberService, IFeedBackService freeService , IClassPackService classService , ITrainerService traiService)
 	{
 		_packageService = packageService;
 		_memberService = memberService;
 		_freeService = freeService;
         _classService = classService;
+		_traiService = traiService;
 
     }
 	[Route("/UserLayout/Index/{page}")]
@@ -43,10 +45,12 @@ public class UserLayoutController : Controller
     }
 	public IActionResult About()
 	{
+		ViewBag.Trai = _traiService.GetTrainer();
 		return View();
 	}
 	public IActionResult Trainer()
 	{
+		ViewBag.Trai = _traiService.GetTrainer();
 		return View();
 	}
 	public IActionResult Contact()

@@ -78,24 +78,24 @@ public class FeedBackDao : IFeedBackService
 	{
 		try
 		{
-
 			int skip = (page - 1) * pageSize;
 
-			var projects = _context.Feedbacks
-			 .OrderByDescending(pt => pt.FeedbackId)
-			 .Skip(skip)
-			 .Take(pageSize)
-			 .Include(pt => pt.Trainer)
-			 .ToList();
+			var feedbacks = _context.Feedbacks
+				.OrderByDescending(f => f.FeedbackId)
+				.Skip(skip)
+				.Take(pageSize)
+				.Include(f => f.Trainer)
+				.ToList();
 
-			return projects;
+			return feedbacks;
 		}
 		catch (Exception)
 		{
-			return [];
+			return []; // Trả về danh sách rỗng nếu có lỗi
 		}
 	}
-    public bool DropFeed(int id)
+
+	public bool DropFeed(int id)
     {
         try
         {

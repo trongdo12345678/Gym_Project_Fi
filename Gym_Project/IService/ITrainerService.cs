@@ -10,4 +10,5 @@ public interface ITrainerService
     public bool UpdateTrainer(Trainer trai);
     public Trainer GetTrai(int id);
     public List<Trainer> GetlistPbyPages(int page, int pageSize, string searchText = null);
+	public List<Trainer> GetTrainer();
 }
