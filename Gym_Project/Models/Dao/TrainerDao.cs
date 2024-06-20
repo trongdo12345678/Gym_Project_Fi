@@ -114,6 +114,7 @@ public class TrainerDao : ITrainerService
             return new Trainer();
         }
     }
+
 	public List<Trainer> GetTrainer()
 	{
 		try
